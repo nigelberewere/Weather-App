@@ -1,4 +1,4 @@
-package com.yourorg.weatherly
+package com.jeopardyapps.weatherly
 
 import io.flutter.embedding.android.FlutterActivity
 
