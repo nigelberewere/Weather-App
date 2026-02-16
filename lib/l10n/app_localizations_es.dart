@@ -97,4 +97,78 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get noAlerts => 'Sin alertas activas';
+
+  @override
+  String get airQuality => 'Calidad del Aire';
+
+  @override
+  String get uvHealthGuidance => 'Guía de Salud UV';
+
+  @override
+  String get searchForCity => 'Buscar una ciudad';
+
+  @override
+  String get noLocationsFound => 'No se encontraron ubicaciones';
+
+  @override
+  String get noFavoriteLocations => 'Sin ubicaciones favoritas';
+
+  @override
+  String get addLocationsToFavorites =>
+      'Añade ubicaciones a favoritos desde la página de búsqueda';
+
+  @override
+  String get selectLocation => 'Por favor selecciona una ubicación';
+
+  @override
+  String get noForecastData => 'No hay datos de pronóstico disponibles';
+
+  @override
+  String get error => 'Error';
+
+  @override
+  String get errorLoadingData => 'Error al cargar datos';
+
+  @override
+  String get notificationSettings => 'Configuración de Notificaciones';
+
+  @override
+  String get severeWeatherOnly => 'Solo Clima Severo';
+
+  @override
+  String get onlyNotifySevere =>
+      'Solo notificar sobre alertas severas/extremas';
+
+  @override
+  String get alertTypes => 'Tipos de Alertas';
+
+  @override
+  String get dailyWeatherSummary => 'Resumen Meteorológico Diario';
+
+  @override
+  String get morningForecast => 'Notificación de pronóstico matutino';
+
+  @override
+  String get summaryTime => 'Hora del Resumen';
+
+  @override
+  String get sendTestNotification => 'Enviar Notificación de Prueba';
+
+  @override
+  String get testNotificationSent => '¡Notificación de prueba enviada!';
+
+  @override
+  String get theme => 'Tema';
+
+  @override
+  String get temperatureUnit => 'Unidad de Temperatura';
+
+  @override
+  String get close => 'Cerrar';
+
+  @override
+  String get pm25 => 'PM2.5';
+
+  @override
+  String get pm10 => 'PM10';
 }

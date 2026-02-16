@@ -47,16 +47,19 @@ class AppTheme {
       ).apply(bodyColor: textPrimary, displayColor: textPrimary),
       cardTheme: CardThemeData(
         color: cardBackground,
-        elevation: 0,
+        elevation: 2,
+        shadowColor: Colors.black26,
         shape: RoundedRectangleBorder(
           borderRadius: const BorderRadius.all(Radius.circular(24)),
           side: BorderSide(color: cardBorder, width: 1),
         ),
+        margin: const EdgeInsets.symmetric(vertical: 4),
       ),
       iconTheme: IconThemeData(color: textPrimary),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: cardBackground,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
           borderSide: BorderSide(color: cardBorder),
@@ -67,11 +70,27 @@ class AppTheme {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(color: textPrimary),
+          borderSide: BorderSide(color: AppColors.primary, width: 2),
         ),
         hintStyle: TextStyle(color: textSecondary),
         prefixIconColor: textSecondary,
         suffixIconColor: textSecondary,
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          elevation: 2,
+          shadowColor: Colors.black26,
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(16)),
+          ),
+        ),
+      ),
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
+        elevation: 4,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(16)),
+        ),
       ),
     );
   }

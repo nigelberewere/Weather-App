@@ -157,7 +157,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
             Icon(Icons.search, size: 64, color: textColor.withOpacity(0.5)),
             const SizedBox(height: 16),
             Text(
-              'Search for a city',
+              l10n.searchForCity,
               style: TextStyle(fontSize: 18, color: textColor.withOpacity(0.7)),
             ),
           ],
@@ -177,7 +177,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
             ),
             const SizedBox(height: 16),
             Text(
-              'No locations found',
+              l10n.noLocationsFound,
               style: TextStyle(fontSize: 18, color: textColor.withOpacity(0.7)),
             ),
           ],

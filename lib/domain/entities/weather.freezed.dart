@@ -1449,4 +1449,288 @@ as bool,
 
 }
 
+
+/// @nodoc
+mixin _$AirQuality {
+
+ int get aqi; double get pm25; double get pm10; double get no2; double get so2; double get o3; double get co; DateTime get timestamp;
+/// Create a copy of AirQuality
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$AirQualityCopyWith<AirQuality> get copyWith => _$AirQualityCopyWithImpl<AirQuality>(this as AirQuality, _$identity);
+
+  /// Serializes this AirQuality to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AirQuality&&(identical(other.aqi, aqi) || other.aqi == aqi)&&(identical(other.pm25, pm25) || other.pm25 == pm25)&&(identical(other.pm10, pm10) || other.pm10 == pm10)&&(identical(other.no2, no2) || other.no2 == no2)&&(identical(other.so2, so2) || other.so2 == so2)&&(identical(other.o3, o3) || other.o3 == o3)&&(identical(other.co, co) || other.co == co)&&(identical(other.timestamp, timestamp) || other.timestamp == timestamp));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,aqi,pm25,pm10,no2,so2,o3,co,timestamp);
+
+@override
+String toString() {
+  return 'AirQuality(aqi: $aqi, pm25: $pm25, pm10: $pm10, no2: $no2, so2: $so2, o3: $o3, co: $co, timestamp: $timestamp)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $AirQualityCopyWith<$Res>  {
+  factory $AirQualityCopyWith(AirQuality value, $Res Function(AirQuality) _then) = _$AirQualityCopyWithImpl;
+@useResult
+$Res call({
+ int aqi, double pm25, double pm10, double no2, double so2, double o3, double co, DateTime timestamp
+});
+
+
+
+
+}
+/// @nodoc
+class _$AirQualityCopyWithImpl<$Res>
+    implements $AirQualityCopyWith<$Res> {
+  _$AirQualityCopyWithImpl(this._self, this._then);
+
+  final AirQuality _self;
+  final $Res Function(AirQuality) _then;
+
+/// Create a copy of AirQuality
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? aqi = null,Object? pm25 = null,Object? pm10 = null,Object? no2 = null,Object? so2 = null,Object? o3 = null,Object? co = null,Object? timestamp = null,}) {
+  return _then(_self.copyWith(
+aqi: null == aqi ? _self.aqi : aqi // ignore: cast_nullable_to_non_nullable
+as int,pm25: null == pm25 ? _self.pm25 : pm25 // ignore: cast_nullable_to_non_nullable
+as double,pm10: null == pm10 ? _self.pm10 : pm10 // ignore: cast_nullable_to_non_nullable
+as double,no2: null == no2 ? _self.no2 : no2 // ignore: cast_nullable_to_non_nullable
+as double,so2: null == so2 ? _self.so2 : so2 // ignore: cast_nullable_to_non_nullable
+as double,o3: null == o3 ? _self.o3 : o3 // ignore: cast_nullable_to_non_nullable
+as double,co: null == co ? _self.co : co // ignore: cast_nullable_to_non_nullable
+as double,timestamp: null == timestamp ? _self.timestamp : timestamp // ignore: cast_nullable_to_non_nullable
+as DateTime,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [AirQuality].
+extension AirQualityPatterns on AirQuality {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _AirQuality value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _AirQuality() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _AirQuality value)  $default,){
+final _that = this;
+switch (_that) {
+case _AirQuality():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _AirQuality value)?  $default,){
+final _that = this;
+switch (_that) {
+case _AirQuality() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int aqi,  double pm25,  double pm10,  double no2,  double so2,  double o3,  double co,  DateTime timestamp)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _AirQuality() when $default != null:
+return $default(_that.aqi,_that.pm25,_that.pm10,_that.no2,_that.so2,_that.o3,_that.co,_that.timestamp);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int aqi,  double pm25,  double pm10,  double no2,  double so2,  double o3,  double co,  DateTime timestamp)  $default,) {final _that = this;
+switch (_that) {
+case _AirQuality():
+return $default(_that.aqi,_that.pm25,_that.pm10,_that.no2,_that.so2,_that.o3,_that.co,_that.timestamp);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int aqi,  double pm25,  double pm10,  double no2,  double so2,  double o3,  double co,  DateTime timestamp)?  $default,) {final _that = this;
+switch (_that) {
+case _AirQuality() when $default != null:
+return $default(_that.aqi,_that.pm25,_that.pm10,_that.no2,_that.so2,_that.o3,_that.co,_that.timestamp);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _AirQuality implements AirQuality {
+  const _AirQuality({required this.aqi, required this.pm25, required this.pm10, required this.no2, required this.so2, required this.o3, required this.co, required this.timestamp});
+  factory _AirQuality.fromJson(Map<String, dynamic> json) => _$AirQualityFromJson(json);
+
+@override final  int aqi;
+@override final  double pm25;
+@override final  double pm10;
+@override final  double no2;
+@override final  double so2;
+@override final  double o3;
+@override final  double co;
+@override final  DateTime timestamp;
+
+/// Create a copy of AirQuality
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$AirQualityCopyWith<_AirQuality> get copyWith => __$AirQualityCopyWithImpl<_AirQuality>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$AirQualityToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AirQuality&&(identical(other.aqi, aqi) || other.aqi == aqi)&&(identical(other.pm25, pm25) || other.pm25 == pm25)&&(identical(other.pm10, pm10) || other.pm10 == pm10)&&(identical(other.no2, no2) || other.no2 == no2)&&(identical(other.so2, so2) || other.so2 == so2)&&(identical(other.o3, o3) || other.o3 == o3)&&(identical(other.co, co) || other.co == co)&&(identical(other.timestamp, timestamp) || other.timestamp == timestamp));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,aqi,pm25,pm10,no2,so2,o3,co,timestamp);
+
+@override
+String toString() {
+  return 'AirQuality(aqi: $aqi, pm25: $pm25, pm10: $pm10, no2: $no2, so2: $so2, o3: $o3, co: $co, timestamp: $timestamp)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$AirQualityCopyWith<$Res> implements $AirQualityCopyWith<$Res> {
+  factory _$AirQualityCopyWith(_AirQuality value, $Res Function(_AirQuality) _then) = __$AirQualityCopyWithImpl;
+@override @useResult
+$Res call({
+ int aqi, double pm25, double pm10, double no2, double so2, double o3, double co, DateTime timestamp
+});
+
+
+
+
+}
+/// @nodoc
+class __$AirQualityCopyWithImpl<$Res>
+    implements _$AirQualityCopyWith<$Res> {
+  __$AirQualityCopyWithImpl(this._self, this._then);
+
+  final _AirQuality _self;
+  final $Res Function(_AirQuality) _then;
+
+/// Create a copy of AirQuality
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? aqi = null,Object? pm25 = null,Object? pm10 = null,Object? no2 = null,Object? so2 = null,Object? o3 = null,Object? co = null,Object? timestamp = null,}) {
+  return _then(_AirQuality(
+aqi: null == aqi ? _self.aqi : aqi // ignore: cast_nullable_to_non_nullable
+as int,pm25: null == pm25 ? _self.pm25 : pm25 // ignore: cast_nullable_to_non_nullable
+as double,pm10: null == pm10 ? _self.pm10 : pm10 // ignore: cast_nullable_to_non_nullable
+as double,no2: null == no2 ? _self.no2 : no2 // ignore: cast_nullable_to_non_nullable
+as double,so2: null == so2 ? _self.so2 : so2 // ignore: cast_nullable_to_non_nullable
+as double,o3: null == o3 ? _self.o3 : o3 // ignore: cast_nullable_to_non_nullable
+as double,co: null == co ? _self.co : co // ignore: cast_nullable_to_non_nullable
+as double,timestamp: null == timestamp ? _self.timestamp : timestamp // ignore: cast_nullable_to_non_nullable
+as DateTime,
+  ));
+}
+
+
+}
+
 // dart format on

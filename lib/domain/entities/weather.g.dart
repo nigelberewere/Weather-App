@@ -135,3 +135,26 @@ Map<String, dynamic> _$LocationToJson(_Location instance) => <String, dynamic>{
   'state': instance.state,
   'isFavorite': instance.isFavorite,
 };
+
+_AirQuality _$AirQualityFromJson(Map<String, dynamic> json) => _AirQuality(
+  aqi: (json['aqi'] as num).toInt(),
+  pm25: (json['pm25'] as num).toDouble(),
+  pm10: (json['pm10'] as num).toDouble(),
+  no2: (json['no2'] as num).toDouble(),
+  so2: (json['so2'] as num).toDouble(),
+  o3: (json['o3'] as num).toDouble(),
+  co: (json['co'] as num).toDouble(),
+  timestamp: DateTime.parse(json['timestamp'] as String),
+);
+
+Map<String, dynamic> _$AirQualityToJson(_AirQuality instance) =>
+    <String, dynamic>{
+      'aqi': instance.aqi,
+      'pm25': instance.pm25,
+      'pm10': instance.pm10,
+      'no2': instance.no2,
+      'so2': instance.so2,
+      'o3': instance.o3,
+      'co': instance.co,
+      'timestamp': instance.timestamp.toIso8601String(),
+    };

@@ -97,4 +97,77 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noAlerts => 'No active alerts';
+
+  @override
+  String get airQuality => 'Air Quality';
+
+  @override
+  String get uvHealthGuidance => 'UV Health Guidance';
+
+  @override
+  String get searchForCity => 'Search for a city';
+
+  @override
+  String get noLocationsFound => 'No locations found';
+
+  @override
+  String get noFavoriteLocations => 'No favorite locations';
+
+  @override
+  String get addLocationsToFavorites =>
+      'Add locations to favorites from the search page';
+
+  @override
+  String get selectLocation => 'Please select a location';
+
+  @override
+  String get noForecastData => 'No forecast data available';
+
+  @override
+  String get error => 'Error';
+
+  @override
+  String get errorLoadingData => 'Error loading data';
+
+  @override
+  String get notificationSettings => 'Notification Settings';
+
+  @override
+  String get severeWeatherOnly => 'Severe Weather Only';
+
+  @override
+  String get onlyNotifySevere => 'Only notify for severe/extreme alerts';
+
+  @override
+  String get alertTypes => 'Alert Types';
+
+  @override
+  String get dailyWeatherSummary => 'Daily Weather Summary';
+
+  @override
+  String get morningForecast => 'Morning weather forecast notification';
+
+  @override
+  String get summaryTime => 'Summary Time';
+
+  @override
+  String get sendTestNotification => 'Send Test Notification';
+
+  @override
+  String get testNotificationSent => 'Test notification sent!';
+
+  @override
+  String get theme => 'Theme';
+
+  @override
+  String get temperatureUnit => 'Temperature Unit';
+
+  @override
+  String get close => 'Close';
+
+  @override
+  String get pm25 => 'PM2.5';
+
+  @override
+  String get pm10 => 'PM10';
 }

@@ -24,4 +24,9 @@ abstract class WeatherRepository {
     required double latitude,
     required double longitude,
   });
+
+  Future<({AirQuality? data, AppError? error})> getAirQuality({
+    required double latitude,
+    required double longitude,
+  });
 }

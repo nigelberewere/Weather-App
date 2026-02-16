@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weatherly/domain/entities/weather.dart';
+import 'package:weatherly/core/localization/app_localizations.dart';
 
 class WeatherAlertBanner extends StatelessWidget {
   final List<WeatherAlert> alerts;
@@ -105,14 +106,15 @@ class WeatherAlertBanner extends StatelessWidget {
   }
 
   void _showAlertDialog(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Row(
+        title: Row(
           children: [
-            Icon(Icons.warning_amber, color: Colors.orange),
-            SizedBox(width: 8),
-            Text('Weather Alerts'),
+            const Icon(Icons.warning_amber, color: Colors.orange),
+            const SizedBox(width: 8),
+            Text(l10n.alerts),
           ],
         ),
         content: SingleChildScrollView(
@@ -175,7 +177,7 @@ class WeatherAlertBanner extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Close'),
+            child: Text(l10n.close),
           ),
         ],
       ),

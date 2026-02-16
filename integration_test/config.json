@@ -1,0 +1,11 @@
+{
+  "version": "1.0.0",
+  "testTimeoutSeconds": 300,
+  "targetPlatform": "android",
+  "obscureTextFields": true,
+  "verboseLogging": false,
+  "screenshotsOnFailure": true,
+  "pauseOnFailure": false,
+  "testFlutterVersion": "stable",
+  "notes": "Configuration for Weatherly app integration tests"
+}

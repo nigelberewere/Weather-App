@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:weatherly/data/models/open_weather_map_response.dart';
+import 'package:weatherly/data/models/air_quality_response.dart';
 
 part 'weather_api_client.g.dart';
 
@@ -36,6 +37,13 @@ abstract class WeatherApiClient {
   Future<List<OpenWeatherLocation>> getDirectGeocoding({
     @Query('q') required String query,
     @Query('limit') int limit = 5,
+    @Query('appid') required String apiKey,
+  });
+
+  @GET('https://api.openweathermap.org/data/3.0/air_pollution')
+  Future<AirQualityResponse> getAirQuality({
+    @Query('lat') required double lat,
+    @Query('lon') required double lon,
     @Query('appid') required String apiKey,
   });
 }

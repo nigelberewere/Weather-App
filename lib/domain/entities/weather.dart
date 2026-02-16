@@ -93,3 +93,20 @@ abstract class Location with _$Location {
   factory Location.fromJson(Map<String, dynamic> json) =>
       _$LocationFromJson(json);
 }
+
+@freezed
+abstract class AirQuality with _$AirQuality {
+  const factory AirQuality({
+    required int aqi,
+    required double pm25,
+    required double pm10,
+    required double no2,
+    required double so2,
+    required double o3,
+    required double co,
+    required DateTime timestamp,
+  }) = _AirQuality;
+
+  factory AirQuality.fromJson(Map<String, dynamic> json) =>
+      _$AirQualityFromJson(json);
+}

@@ -446,6 +446,48 @@ class WeatherRepositoryImpl implements WeatherRepository {
     }
   }
 
+  @override
+  Future<({AirQuality? data, AppError? error})> getAirQuality({
+    required double latitude,
+    required double longitude,
+  }) async {
+    try {
+      final response = await _apiClient.getAirQuality(
+        lat: latitude,
+        lon: longitude,
+        apiKey: _apiKey,
+      );
+
+      if (response.list.isEmpty) {
+        return (
+          data: null,
+          error: const AppError.unknown('No air quality data available'),
+        );
+      }
+
+      final item = response.list.first;
+      final airQuality = AirQuality(
+        aqi: item.main.aqi,
+        pm25: item.components.pm2_5,
+        pm10: item.components.pm10,
+        no2: item.components.no2,
+        so2: item.components.so2,
+        o3: item.components.o3,
+        co: item.components.co,
+        timestamp: DateTime.fromMillisecondsSinceEpoch(item.dt * 1000),
+      );
+
+      return (data: airQuality, error: null);
+    } on DioException catch (e) {
+      return (data: null, error: _handleDioError(e));
+    } catch (e) {
+      return (
+        data: null,
+        error: AppError.unknown('Failed to fetch air quality: $e'),
+      );
+    }
+  }
+
   AppError _handleDioError(DioException error) {
     if (error.type == DioExceptionType.connectionTimeout ||
         error.type == DioExceptionType.receiveTimeout) {

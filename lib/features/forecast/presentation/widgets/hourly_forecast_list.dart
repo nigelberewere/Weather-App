@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:weatherly/core/localization/app_localizations.dart';
 import 'package:weatherly/core/utils/date_formatter.dart';
 import 'package:weatherly/core/utils/unit_converter.dart';
 import 'package:weatherly/core/widgets/weather_icon.dart';
@@ -13,12 +14,13 @@ class HourlyForecastList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final unitAsync = ref.watch(unitPreferenceProvider);
 
     return unitAsync.when(
       data: (unit) => _buildList(context, unit),
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (error, stackTrace) => Center(child: Text('Error: $error')),
+      error: (error, stackTrace) => Center(child: Text('${l10n.error}: $error')),
     );
   }
 

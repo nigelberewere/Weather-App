@@ -40,3 +40,26 @@ final currentWeatherProvider = FutureProvider.family<Weather?, Location>((
   }
   return result.data;
 });
+
+final airQualityProvider = FutureProvider.family<AirQuality?, Location>((
+  ref,
+  location,
+) async {
+  final repository = ref.watch(weatherRepositoryProvider);
+  
+  final result = await repository.getAirQuality(
+    latitude: location.latitude,
+    longitude: location.longitude,
+  );
+  if (result.error != null) {
+    throw result.error!.when(
+      network: (message) => message,
+      server: (message) => message,
+      location: (message) => message,
+      permission: (message) => message,
+      cache: (message) => message,
+      unknown: (message) => message,
+    );
+  }
+  return result.data;
+});

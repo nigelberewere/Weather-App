@@ -277,6 +277,150 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No active alerts'**
   String get noAlerts;
+
+  /// No description provided for @airQuality.
+  ///
+  /// In en, this message translates to:
+  /// **'Air Quality'**
+  String get airQuality;
+
+  /// No description provided for @uvHealthGuidance.
+  ///
+  /// In en, this message translates to:
+  /// **'UV Health Guidance'**
+  String get uvHealthGuidance;
+
+  /// No description provided for @searchForCity.
+  ///
+  /// In en, this message translates to:
+  /// **'Search for a city'**
+  String get searchForCity;
+
+  /// No description provided for @noLocationsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No locations found'**
+  String get noLocationsFound;
+
+  /// No description provided for @noFavoriteLocations.
+  ///
+  /// In en, this message translates to:
+  /// **'No favorite locations'**
+  String get noFavoriteLocations;
+
+  /// No description provided for @addLocationsToFavorites.
+  ///
+  /// In en, this message translates to:
+  /// **'Add locations to favorites from the search page'**
+  String get addLocationsToFavorites;
+
+  /// No description provided for @selectLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a location'**
+  String get selectLocation;
+
+  /// No description provided for @noForecastData.
+  ///
+  /// In en, this message translates to:
+  /// **'No forecast data available'**
+  String get noForecastData;
+
+  /// No description provided for @error.
+  ///
+  /// In en, this message translates to:
+  /// **'Error'**
+  String get error;
+
+  /// No description provided for @errorLoadingData.
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading data'**
+  String get errorLoadingData;
+
+  /// No description provided for @notificationSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Notification Settings'**
+  String get notificationSettings;
+
+  /// No description provided for @severeWeatherOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Severe Weather Only'**
+  String get severeWeatherOnly;
+
+  /// No description provided for @onlyNotifySevere.
+  ///
+  /// In en, this message translates to:
+  /// **'Only notify for severe/extreme alerts'**
+  String get onlyNotifySevere;
+
+  /// No description provided for @alertTypes.
+  ///
+  /// In en, this message translates to:
+  /// **'Alert Types'**
+  String get alertTypes;
+
+  /// No description provided for @dailyWeatherSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Weather Summary'**
+  String get dailyWeatherSummary;
+
+  /// No description provided for @morningForecast.
+  ///
+  /// In en, this message translates to:
+  /// **'Morning weather forecast notification'**
+  String get morningForecast;
+
+  /// No description provided for @summaryTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Summary Time'**
+  String get summaryTime;
+
+  /// No description provided for @sendTestNotification.
+  ///
+  /// In en, this message translates to:
+  /// **'Send Test Notification'**
+  String get sendTestNotification;
+
+  /// No description provided for @testNotificationSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Test notification sent!'**
+  String get testNotificationSent;
+
+  /// No description provided for @theme.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme'**
+  String get theme;
+
+  /// No description provided for @temperatureUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'Temperature Unit'**
+  String get temperatureUnit;
+
+  /// No description provided for @close.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get close;
+
+  /// No description provided for @pm25.
+  ///
+  /// In en, this message translates to:
+  /// **'PM2.5'**
+  String get pm25;
+
+  /// No description provided for @pm10.
+  ///
+  /// In en, this message translates to:
+  /// **'PM10'**
+  String get pm10;
 }
 
 class _AppLocalizationsDelegate

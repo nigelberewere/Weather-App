@@ -20,7 +20,7 @@ class SettingsPage extends ConsumerWidget {
       body: unitPreferenceAsync.when(
         data: (unitPreference) => _buildSettings(context, ref, l10n, themeMode, unitPreference),
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stackTrace) => Center(child: Text('Error: $error')),
+        error: (error, stackTrace) => Center(child: Text('${l10n.error}: $error')),
       ),
     );
   }
@@ -37,7 +37,7 @@ class SettingsPage extends ConsumerWidget {
         const SizedBox(height: 8),
         ListTile(
           leading: const Icon(Icons.palette_outlined),
-          title: const Text('Theme'),
+          title: Text(l10n.theme),
           subtitle: Text(_getThemeModeLabel(themeMode)),
           onTap: () {
             _showThemeDialog(context, ref);
@@ -47,7 +47,7 @@ class SettingsPage extends ConsumerWidget {
         const Divider(),
         ListTile(
           leading: const Icon(Icons.thermostat_outlined),
-          title: const Text('Temperature Unit'),
+          title: Text(l10n.temperatureUnit),
           subtitle: Text(_getUnitLabel(unitPreference)),
           onTap: () {
             _showUnitDialog(context, ref);
@@ -199,6 +199,7 @@ class SettingsPage extends ConsumerWidget {
   }
 
   void _showUnitDialog(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -264,7 +265,7 @@ class SettingsPage extends ConsumerWidget {
                 ],
               ),
               loading: () => const CircularProgressIndicator(),
-              error: (error, stackTrace) => Text('Error: $error'),
+              error: (error, stackTrace) => Text('${l10n.error}: $error'),
             );
           },
         ),

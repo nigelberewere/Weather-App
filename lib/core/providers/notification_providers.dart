@@ -91,7 +91,7 @@ class NotificationSettingsNotifier extends Notifier<NotificationSettings> {
 
   Future<void> setDailySummaryTime(String time) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.getString('daily_summary_time');
+    prefs.getString('daily_summary_time');
     state = state.copyWith(dailySummaryTime: time);
   }
 }

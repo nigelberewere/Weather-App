@@ -5,8 +5,8 @@ import 'package:weatherly/core/theme/app_colors.dart';
 import 'package:weatherly/core/utils/date_formatter.dart';
 import 'package:weatherly/core/utils/unit_converter.dart';
 import 'package:weatherly/core/providers/settings_providers.dart';
-import 'package:weatherly/domain/entities/weather.dart';
 import 'package:weatherly/core/localization/app_localizations.dart';
+import 'package:weatherly/domain/entities/weather.dart';
 
 class WeatherDetailsCard extends ConsumerWidget {
   final Weather weather;
@@ -21,7 +21,7 @@ class WeatherDetailsCard extends ConsumerWidget {
     return unitAsync.when(
       data: (unit) => _buildDetails(context, l10n, unit),
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (error, stackTrace) => Center(child: Text('Error: $error')),
+      error: (error, stackTrace) => Center(child: Text('${l10n.error}: $error')),
     );
   }
 
@@ -69,50 +69,88 @@ class WeatherDetailsCard extends ConsumerWidget {
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        childAspectRatio: 1.5,
-        crossAxisSpacing: 12,
-        mainAxisSpacing: 12,
+        childAspectRatio: 1.4,
+        crossAxisSpacing: 16,
+        mainAxisSpacing: 16,
       ),
       itemCount: details.length,
       itemBuilder: (context, index) {
         final detail = details[index];
         return Container(
           decoration: BoxDecoration(
-            color: AppColors.cardBackground,
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: AppColors.cardBorder),
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                AppColors.cardBackground.withOpacity(0.2),
+                AppColors.cardBackground.withOpacity(0.1),
+              ],
+            ),
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(
+              color: AppColors.cardBorder.withOpacity(0.5),
+              width: 1.5,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.08),
+                blurRadius: 12,
+                offset: const Offset(0, 6),
+              ),
+            ],
           ),
           padding: const EdgeInsets.all(16),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              SvgPicture.asset(detail.iconPath, width: 32, height: 32),
-              const SizedBox(height: 6),
+              // Icon with subtle background glow
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: AppColors.cardBackground.withOpacity(0.2),
+                ),
+                child: SvgPicture.asset(
+                  detail.iconPath,
+                  width: 28,
+                  height: 28,
+                  colorFilter: ColorFilter.mode(
+                    AppColors.textPrimary.withOpacity(0.9),
+                    BlendMode.srcIn,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+              // Label
               Flexible(
                 child: Text(
                   detail.label.toUpperCase(),
                   style: const TextStyle(
                     color: AppColors.textSecondary,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 1.0,
+                    fontSize: 11,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 1.2,
                   ),
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
                 ),
               ),
-              const SizedBox(height: 2),
+              const SizedBox(height: 4),
+              // Value
               Flexible(
                 child: Text(
                   detail.value,
                   style: const TextStyle(
                     color: AppColors.textPrimary,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 0.5,
                   ),
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
                 ),
               ),
             ],

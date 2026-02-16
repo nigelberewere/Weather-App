@@ -3,9 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:weatherly/core/errors/app_error.dart';
 import 'package:weatherly/core/providers/providers.dart';
 import 'package:weatherly/core/providers/settings_providers.dart';
+import 'package:weatherly/core/widgets/enhanced_states.dart';
 import 'package:weatherly/domain/entities/weather.dart';
 import 'package:weatherly/core/theme/app_colors.dart';
 import 'package:weatherly/core/widgets/weather_background.dart';
+import 'package:weatherly/features/forecast/presentation/widgets/forecast_charts.dart';
 import 'package:weatherly/features/forecast/presentation/widgets/hourly_forecast_list.dart';
 import 'package:weatherly/features/forecast/presentation/widgets/daily_forecast_list.dart';
 import 'package:weatherly/core/localization/app_localizations.dart';
@@ -81,7 +83,7 @@ class ForecastPage extends ConsumerWidget {
     final l10n = AppLocalizations.of(context)!;
 
     if (location == null) {
-      return const Center(child: Text('Please select a location'));
+      return Center(child: Text(l10n.selectLocation));
     }
 
     final weatherAsync = ref.watch(currentWeatherProvider(location!));
@@ -129,17 +131,36 @@ class ForecastPage extends ConsumerWidget {
     WidgetRef ref,
     Location location,
   ) {
+    final l10n = AppLocalizations.of(context)!;
     final forecastAsync = ref.watch(hourlyForecastProvider(location));
 
     return forecastAsync.when(
       data: (forecast) {
         if (forecast == null || forecast.isEmpty) {
-          return const Center(child: Text('No forecast data available'));
+          return EmptyStateDisplay(
+            title: l10n.noForecastData,
+            subtitle: 'Forecast data is not available at this time',
+            icon: Icons.cloud_off_outlined,
+          );
         }
-        return HourlyForecastList(forecasts: forecast);
+        return Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+              child: HourlyForecastChart(forecasts: forecast),
+            ),
+            const Divider(color: Colors.white24, height: 1),
+            Expanded(child: HourlyForecastList(forecasts: forecast)),
+          ],
+        );
       },
-      loading: () => const Center(child: CircularProgressIndicator()),
-      error: (error, stack) => Center(child: Text('Error: $error')),
+      loading: () => const EnhancedLoadingIndicator(
+        message: 'Loading hourly forecast...',
+      ),
+      error: (error, stack) => EnhancedErrorDisplay(
+        message: l10n.error,
+        subtitle: error.toString(),
+      ),
     );
   }
 
@@ -148,17 +169,36 @@ class ForecastPage extends ConsumerWidget {
     WidgetRef ref,
     Location location,
   ) {
+    final l10n = AppLocalizations.of(context)!;
     final forecastAsync = ref.watch(dailyForecastProvider(location));
 
     return forecastAsync.when(
       data: (forecast) {
         if (forecast == null || forecast.isEmpty) {
-          return const Center(child: Text('No forecast data available'));
+          return EmptyStateDisplay(
+            title: l10n.noForecastData,
+            subtitle: 'Forecast data is not available at this time',
+            icon: Icons.cloud_off_outlined,
+          );
         }
-        return DailyForecastList(forecasts: forecast);
+        return Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+              child: DailyForecastChart(forecasts: forecast),
+            ),
+            const Divider(color: Colors.white24, height: 1),
+            Expanded(child: DailyForecastList(forecasts: forecast)),
+          ],
+        );
       },
-      loading: () => const Center(child: CircularProgressIndicator()),
-      error: (error, stack) => Center(child: Text('Error: $error')),
+      loading: () => const EnhancedLoadingIndicator(
+        message: 'Loading daily forecast...',
+      ),
+      error: (error, stack) => EnhancedErrorDisplay(
+        message: l10n.error,
+        subtitle: error.toString(),
+      ),
     );
   }
 }
