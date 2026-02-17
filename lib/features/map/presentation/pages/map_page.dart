@@ -97,7 +97,10 @@ class _MapPageState extends ConsumerState<MapPage> {
           ..clear()
           ..addAll(frames);
         _currentFrameIndex = frames.length - 1;
-        _rainViewerUrlTemplate = _buildTemplate(host, frames[_currentFrameIndex].path);
+        _rainViewerUrlTemplate = _buildTemplate(
+          host,
+          frames[_currentFrameIndex].path,
+        );
       });
     } catch (e) {
       debugPrint('Error fetching RainViewer config: $e');
@@ -146,7 +149,9 @@ class _MapPageState extends ConsumerState<MapPage> {
   }
 
   String _formatFrameTime(_RadarFrame frame) {
-    final dateTime = DateTime.fromMillisecondsSinceEpoch(frame.time * 1000).toLocal();
+    final dateTime = DateTime.fromMillisecondsSinceEpoch(
+      frame.time * 1000,
+    ).toLocal();
     final hour = dateTime.hour.toString().padLeft(2, '0');
     final minute = dateTime.minute.toString().padLeft(2, '0');
     final label = frame.isNowcast ? 'Nowcast' : 'Past';
@@ -294,7 +299,10 @@ class _MapPageState extends ConsumerState<MapPage> {
             child: Card(
               color: Colors.black.withOpacity(0.72),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 8,
+                ),
                 child: Wrap(
                   spacing: 8,
                   runSpacing: 6,
@@ -357,7 +365,10 @@ class _MapPageState extends ConsumerState<MapPage> {
               child: Card(
                 color: Colors.black.withOpacity(0.7),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 8,
+                  ),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -367,25 +378,37 @@ class _MapPageState extends ConsumerState<MapPage> {
                           IconButton(
                             onPressed: _togglePlayback,
                             icon: Icon(
-                              _isPlaying ? Icons.pause_circle : Icons.play_circle,
+                              _isPlaying
+                                  ? Icons.pause_circle
+                                  : Icons.play_circle,
                               color: Colors.white,
                               size: 28,
                             ),
                           ),
                           Expanded(
                             child: Text(
-                              _formatFrameTime(_radarFrames[_currentFrameIndex]),
+                              _formatFrameTime(
+                                _radarFrames[_currentFrameIndex],
+                              ),
                               style: const TextStyle(color: Colors.white),
                               textAlign: TextAlign.center,
                             ),
                           ),
                           IconButton(
-                            onPressed: () => _setFrameIndex(_currentFrameIndex - 1),
-                            icon: const Icon(Icons.skip_previous, color: Colors.white),
+                            onPressed: () =>
+                                _setFrameIndex(_currentFrameIndex - 1),
+                            icon: const Icon(
+                              Icons.skip_previous,
+                              color: Colors.white,
+                            ),
                           ),
                           IconButton(
-                            onPressed: () => _setFrameIndex(_currentFrameIndex + 1),
-                            icon: const Icon(Icons.skip_next, color: Colors.white),
+                            onPressed: () =>
+                                _setFrameIndex(_currentFrameIndex + 1),
+                            icon: const Icon(
+                              Icons.skip_next,
+                              color: Colors.white,
+                            ),
                           ),
                         ],
                       ),

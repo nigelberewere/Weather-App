@@ -13,10 +13,6 @@ class AppIcon extends StatelessWidget {
         ? 'assets/images/icons/weather_dark.svg'
         : 'assets/images/icons/weather_light.svg';
 
-    return SvgPicture.asset(
-      assetName,
-      width: size,
-      height: size,
-    );
+    return SvgPicture.asset(assetName, width: size, height: size);
   }
 }

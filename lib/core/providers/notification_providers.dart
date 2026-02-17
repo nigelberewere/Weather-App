@@ -13,7 +13,7 @@ final notificationServiceProvider = Provider<NotificationService>((ref) {
 final weatherAlertServiceProvider = Provider<WeatherAlertService>((ref) {
   final weatherRepository = ref.watch(weatherRepositoryProvider);
   final notificationService = ref.watch(notificationServiceProvider);
-  
+
   return WeatherAlertService(
     weatherRepository: weatherRepository,
     notificationService: notificationService,
@@ -49,10 +49,10 @@ class NotificationSettings {
   }
 }
 
-final notificationSettingsProvider = 
+final notificationSettingsProvider =
     NotifierProvider<NotificationSettingsNotifier, NotificationSettings>(
-  NotificationSettingsNotifier.new,
-);
+      NotificationSettingsNotifier.new,
+    );
 
 class NotificationSettingsNotifier extends Notifier<NotificationSettings> {
   @override

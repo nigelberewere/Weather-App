@@ -21,7 +21,8 @@ class HourlyForecastList extends ConsumerWidget {
     return unitAsync.when(
       data: (unit) => _buildList(context, unit),
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (error, stackTrace) => Center(child: Text('${l10n.error}: $error')),
+      error: (error, stackTrace) =>
+          Center(child: Text('${l10n.error}: $error')),
     );
   }
 
@@ -32,7 +33,7 @@ class HourlyForecastList extends ConsumerWidget {
       itemBuilder: (context, index) {
         final forecast = forecasts[index];
         final isNow = index == 0;
-        
+
         return Container(
           margin: const EdgeInsets.only(bottom: 12),
           decoration: BoxDecoration(
@@ -45,10 +46,7 @@ class HourlyForecastList extends ConsumerWidget {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
-            border: Border.all(
-              color: Colors.white.withOpacity(0.2),
-              width: 1,
-            ),
+            border: Border.all(color: Colors.white.withOpacity(0.2), width: 1),
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(0.1),
@@ -72,10 +70,14 @@ class HourlyForecastList extends ConsumerWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            isNow ? 'Now' : DateFormatter.formatHour(forecast.time),
+                            isNow
+                                ? 'Now'
+                                : DateFormatter.formatHour(forecast.time),
                             style: TextStyle(
                               fontSize: isNow ? 18 : 16,
-                              fontWeight: isNow ? FontWeight.bold : FontWeight.w600,
+                              fontWeight: isNow
+                                  ? FontWeight.bold
+                                  : FontWeight.w600,
                               color: Colors.white,
                             ),
                           ),
@@ -91,7 +93,10 @@ class HourlyForecastList extends ConsumerWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            UnitConverter.formatTemperature(forecast.temperature, unit),
+                            UnitConverter.formatTemperature(
+                              forecast.temperature,
+                              unit,
+                            ),
                             style: const TextStyle(
                               fontSize: 28,
                               fontWeight: FontWeight.bold,
@@ -127,7 +132,10 @@ class HourlyForecastList extends ConsumerWidget {
                         const SizedBox(height: 8),
                         _buildDetailRow(
                           Icons.thermostat_outlined,
-                          UnitConverter.formatTemperature(forecast.feelsLike, unit),
+                          UnitConverter.formatTemperature(
+                            forecast.feelsLike,
+                            unit,
+                          ),
                         ),
                       ],
                     ),
@@ -145,11 +153,7 @@ class HourlyForecastList extends ConsumerWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(
-          icon,
-          size: 16,
-          color: Colors.white.withOpacity(0.7),
-        ),
+        Icon(icon, size: 16, color: Colors.white.withOpacity(0.7)),
         const SizedBox(width: 4),
         Text(
           text,

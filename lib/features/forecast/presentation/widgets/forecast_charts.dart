@@ -42,10 +42,7 @@ class HourlyForecastChart extends ConsumerWidget {
         BarChartRodData(
           toY: forecast.precipitationProbability.toDouble(),
           gradient: LinearGradient(
-            colors: [
-              Colors.blue.shade300,
-              Colors.blue.shade600,
-            ],
+            colors: [Colors.blue.shade300, Colors.blue.shade600],
             begin: Alignment.bottomCenter,
             end: Alignment.topCenter,
           ),
@@ -69,7 +66,11 @@ class HourlyForecastChart extends ConsumerWidget {
           padding: const EdgeInsets.only(bottom: 12),
           child: Row(
             children: [
-              Icon(Icons.thermostat, size: 20, color: Colors.white.withOpacity(0.9)),
+              Icon(
+                Icons.thermostat,
+                size: 20,
+                color: Colors.white.withOpacity(0.9),
+              ),
               const SizedBox(width: 8),
               const Text(
                 'Temperature',
@@ -178,10 +179,7 @@ class HourlyForecastChart extends ConsumerWidget {
                     },
                   ),
                   gradient: const LinearGradient(
-                    colors: [
-                      Colors.orangeAccent,
-                      Colors.deepOrangeAccent,
-                    ],
+                    colors: [Colors.orangeAccent, Colors.deepOrangeAccent],
                   ),
                   belowBarData: BarAreaData(
                     show: true,
@@ -204,7 +202,11 @@ class HourlyForecastChart extends ConsumerWidget {
           padding: const EdgeInsets.only(bottom: 12),
           child: Row(
             children: [
-              Icon(Icons.water_drop, size: 20, color: Colors.white.withOpacity(0.9)),
+              Icon(
+                Icons.water_drop,
+                size: 20,
+                color: Colors.white.withOpacity(0.9),
+              ),
               const SizedBox(width: 8),
               const Text(
                 'Precipitation Probability',
@@ -298,10 +300,8 @@ class HourlyForecastChart extends ConsumerWidget {
               ),
               barGroups: List.generate(
                 precipSpots.length,
-                (index) => BarChartGroupData(
-                  x: index,
-                  barRods: [precipSpots[index]],
-                ),
+                (index) =>
+                    BarChartGroupData(x: index, barRods: [precipSpots[index]]),
               ),
             ),
           ),
@@ -347,10 +347,7 @@ class DailyForecastChart extends ConsumerWidget {
         BarChartRodData(
           toY: forecast.precipitationProbability.toDouble(),
           gradient: LinearGradient(
-            colors: [
-              Colors.blue.shade300,
-              Colors.blue.shade700,
-            ],
+            colors: [Colors.blue.shade300, Colors.blue.shade700],
             begin: Alignment.bottomCenter,
             end: Alignment.topCenter,
           ),
@@ -377,7 +374,11 @@ class DailyForecastChart extends ConsumerWidget {
           padding: const EdgeInsets.only(bottom: 12),
           child: Row(
             children: [
-              Icon(Icons.thermostat, size: 20, color: Colors.white.withOpacity(0.9)),
+              Icon(
+                Icons.thermostat,
+                size: 20,
+                color: Colors.white.withOpacity(0.9),
+              ),
               const SizedBox(width: 8),
               const Text(
                 'Daily Temperature',
@@ -486,10 +487,7 @@ class DailyForecastChart extends ConsumerWidget {
                     },
                   ),
                   gradient: LinearGradient(
-                    colors: [
-                      Colors.redAccent,
-                      Colors.deepOrangeAccent,
-                    ],
+                    colors: [Colors.redAccent, Colors.deepOrangeAccent],
                   ),
                   belowBarData: BarAreaData(
                     show: true,
@@ -519,10 +517,7 @@ class DailyForecastChart extends ConsumerWidget {
                     },
                   ),
                   gradient: LinearGradient(
-                    colors: [
-                      Colors.lightBlueAccent,
-                      Colors.blueAccent,
-                    ],
+                    colors: [Colors.lightBlueAccent, Colors.blueAccent],
                   ),
                   belowBarData: BarAreaData(
                     show: true,
@@ -545,7 +540,11 @@ class DailyForecastChart extends ConsumerWidget {
           padding: const EdgeInsets.only(bottom: 12),
           child: Row(
             children: [
-              Icon(Icons.water_drop, size: 20, color: Colors.white.withOpacity(0.9)),
+              Icon(
+                Icons.water_drop,
+                size: 20,
+                color: Colors.white.withOpacity(0.9),
+              ),
               const SizedBox(width: 8),
               const Text(
                 'Daily Precipitation Probability',
@@ -639,10 +638,8 @@ class DailyForecastChart extends ConsumerWidget {
               ),
               barGroups: List.generate(
                 precipBars.length,
-                (index) => BarChartGroupData(
-                  x: index,
-                  barRods: [precipBars[index]],
-                ),
+                (index) =>
+                    BarChartGroupData(x: index, barRods: [precipBars[index]]),
               ),
             ),
           ),

@@ -6,11 +6,7 @@ class EnhancedLoadingIndicator extends StatelessWidget {
   final String? message;
   final double size;
 
-  const EnhancedLoadingIndicator({
-    super.key,
-    this.message,
-    this.size = 48,
-  });
+  const EnhancedLoadingIndicator({super.key, this.message, this.size = 48});
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +20,7 @@ class EnhancedLoadingIndicator extends StatelessWidget {
             height: size,
             child: const CircularProgressIndicator(
               strokeWidth: 3,
-              valueColor: AlwaysStoppedAnimation<Color>(
-                AppColors.primary,
-              ),
+              valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
             ),
           ),
           if (message != null) ...[
@@ -84,11 +78,7 @@ class EnhancedErrorDisplay extends StatelessWidget {
                   width: 2,
                 ),
               ),
-              child: Icon(
-                icon,
-                size: 64,
-                color: Colors.red.shade400,
-              ),
+              child: Icon(icon, size: 64, color: Colors.red.shade400),
             ),
             const SizedBox(height: 24),
             // Error message
@@ -167,11 +157,7 @@ class EmptyStateDisplay extends StatelessWidget {
                   width: 2,
                 ),
               ),
-              child: Icon(
-                icon,
-                size: 64,
-                color: AppColors.primary,
-              ),
+              child: Icon(icon, size: 64, color: AppColors.primary),
             ),
             const SizedBox(height: 24),
             // Title
@@ -191,10 +177,7 @@ class EmptyStateDisplay extends StatelessWidget {
               ),
               textAlign: TextAlign.center,
             ),
-            if (action != null) ...[
-              const SizedBox(height: 32),
-              action!,
-            ],
+            if (action != null) ...[const SizedBox(height: 32), action!],
           ],
         ),
       ),

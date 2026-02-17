@@ -32,19 +32,14 @@ class _NotificationSettingsPageState
     final notifier = ref.read(notificationSettingsProvider.notifier);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(l10n.notificationSettings),
-      ),
+      appBar: AppBar(title: Text(l10n.notificationSettings)),
       body: ListView(
         children: [
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Text(
               l10n.alerts,
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ),
           SwitchListTile(
@@ -94,10 +89,7 @@ class _NotificationSettingsPageState
             padding: const EdgeInsets.all(16.0),
             child: Text(
               l10n.dailyWeatherSummary,
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ),
           SwitchListTile(
@@ -139,16 +131,14 @@ class _NotificationSettingsPageState
               children: [
                 const Text(
                   'Test Notifications',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 16),
                 ElevatedButton.icon(
                   onPressed: () async {
-                    final notificationService =
-                        ref.read(notificationServiceProvider);
+                    final notificationService = ref.read(
+                      notificationServiceProvider,
+                    );
                     await notificationService.showDailySummary(
                       locationName: 'Test Location',
                       condition: 'Partly Cloudy',
@@ -158,9 +148,7 @@ class _NotificationSettingsPageState
                     );
                     if (context.mounted) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(l10n.testNotificationSent),
-                        ),
+                        SnackBar(content: Text(l10n.testNotificationSent)),
                       );
                     }
                   },

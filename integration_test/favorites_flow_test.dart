@@ -9,8 +9,9 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('Favorites Management Flow Integration Tests', () {
-    testWidgets('User can navigate to favorites page from home',
-        (WidgetTester tester) async {
+    testWidgets('User can navigate to favorites page from home', (
+      WidgetTester tester,
+    ) async {
       await buildTestApp(tester);
       await waitForLoadingComplete(tester);
 
@@ -28,8 +29,9 @@ void main() {
       }
     });
 
-    testWidgets('Favorites page shows empty state when no favorites',
-        (WidgetTester tester) async {
+    testWidgets('Favorites page shows empty state when no favorites', (
+      WidgetTester tester,
+    ) async {
       await buildTestApp(tester);
       await waitForLoadingComplete(tester);
 
@@ -41,7 +43,7 @@ void main() {
 
         // Empty state should show "No favorite locations" or similar
         expect(find.byType(FavoritesPage), findsOneWidget);
-        
+
         // Look for text indicating empty favorites
         final textFound = find.textContaining('favorite').evaluate().isNotEmpty;
         expect(
@@ -52,8 +54,9 @@ void main() {
       }
     });
 
-    testWidgets('User can add a location to favorites from mini-dashboard',
-        (WidgetTester tester) async {
+    testWidgets('User can add a location to favorites from mini-dashboard', (
+      WidgetTester tester,
+    ) async {
       await buildTestApp(tester);
       await waitForLoadingComplete(tester);
 
@@ -91,8 +94,9 @@ void main() {
       }
     });
 
-    testWidgets('User can view favorite locations in favorites page',
-        (WidgetTester tester) async {
+    testWidgets('User can view favorite locations in favorites page', (
+      WidgetTester tester,
+    ) async {
       await buildTestApp(tester);
       await waitForLoadingComplete(tester);
 
@@ -103,7 +107,7 @@ void main() {
         await pumpAndSettle(tester);
 
         expect(find.byType(FavoritesPage), findsOneWidget);
-        
+
         // If there are favorites, they should be displayed
         final cards = find.byType(Card);
         if (cards.evaluate().isNotEmpty) {
@@ -112,8 +116,9 @@ void main() {
       }
     });
 
-    testWidgets('User can remove a favorite location',
-        (WidgetTester tester) async {
+    testWidgets('User can remove a favorite location', (
+      WidgetTester tester,
+    ) async {
       await buildTestApp(tester);
       await waitForLoadingComplete(tester);
 
@@ -135,8 +140,9 @@ void main() {
       }
     });
 
-    testWidgets('User can select a favorite to view its weather',
-        (WidgetTester tester) async {
+    testWidgets('User can select a favorite to view its weather', (
+      WidgetTester tester,
+    ) async {
       await buildTestApp(tester);
       await waitForLoadingComplete(tester);
 
@@ -158,8 +164,9 @@ void main() {
       }
     });
 
-    testWidgets('Favorites persist after app restart',
-        (WidgetTester tester) async {
+    testWidgets('Favorites persist after app restart', (
+      WidgetTester tester,
+    ) async {
       // This is a basic test that can be expanded with actual persistence checking
       await buildTestApp(tester);
       await waitForLoadingComplete(tester);

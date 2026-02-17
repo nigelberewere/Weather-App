@@ -30,9 +30,7 @@ void main() {
     testWidgets('displays temperature correctly', (WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: CurrentWeatherCard(weather: testWeather),
-          ),
+          home: Scaffold(body: CurrentWeatherCard(weather: testWeather)),
         ),
       );
 
@@ -42,9 +40,7 @@ void main() {
     testWidgets('displays weather description', (WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: CurrentWeatherCard(weather: testWeather),
-          ),
+          home: Scaffold(body: CurrentWeatherCard(weather: testWeather)),
         ),
       );
 
@@ -54,9 +50,7 @@ void main() {
     testWidgets('displays feels like temperature', (WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: CurrentWeatherCard(weather: testWeather),
-          ),
+          home: Scaffold(body: CurrentWeatherCard(weather: testWeather)),
         ),
       );
 
@@ -67,9 +61,7 @@ void main() {
     testWidgets('displays weather icon', (WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: CurrentWeatherCard(weather: testWeather),
-          ),
+          home: Scaffold(body: CurrentWeatherCard(weather: testWeather)),
         ),
       );
 

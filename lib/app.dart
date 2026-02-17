@@ -6,7 +6,9 @@ import 'package:weatherly/features/home/presentation/pages/home_page.dart';
 import 'package:weatherly/features/onboarding/presentation/pages/onboarding_page.dart';
 import 'package:weatherly/core/localization/app_localizations.dart';
 
-final themeModeProvider = NotifierProvider<ThemeModeNotifier, ThemeMode>(ThemeModeNotifier.new);
+final themeModeProvider = NotifierProvider<ThemeModeNotifier, ThemeMode>(
+  ThemeModeNotifier.new,
+);
 
 class ThemeModeNotifier extends Notifier<ThemeMode> {
   @override
@@ -35,15 +37,12 @@ class WeatherlyApp extends ConsumerWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: const [
-        Locale('en'),
-        Locale('es'),
-      ],
+      supportedLocales: const [Locale('en'), Locale('es')],
       home: hasSeenOnboarding.when(
-        data: (completed) => completed ? const HomePage() : const OnboardingPage(),
-        loading: () => const Scaffold(
-          body: Center(child: CircularProgressIndicator()),
-        ),
+        data: (completed) =>
+            completed ? const HomePage() : const OnboardingPage(),
+        loading: () =>
+            const Scaffold(body: Center(child: CircularProgressIndicator())),
         error: (_, __) => const HomePage(), // Fallback to home if error
       ),
     );

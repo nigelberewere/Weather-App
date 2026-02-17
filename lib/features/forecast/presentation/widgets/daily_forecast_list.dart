@@ -22,7 +22,8 @@ class DailyForecastList extends ConsumerWidget {
     return unitAsync.when(
       data: (unit) => _buildList(context, unit),
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (error, stackTrace) => Center(child: Text('${l10n.error}: $error')),
+      error: (error, stackTrace) =>
+          Center(child: Text('${l10n.error}: $error')),
     );
   }
 
@@ -47,10 +48,7 @@ class DailyForecastList extends ConsumerWidget {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
-            border: Border.all(
-              color: Colors.white.withOpacity(0.2),
-              width: 1,
-            ),
+            border: Border.all(color: Colors.white.withOpacity(0.2), width: 1),
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(0.1),
@@ -161,10 +159,7 @@ class DailyForecastList extends ConsumerWidget {
                           '${forecast.windSpeed.toStringAsFixed(0)} ${_getWindUnit(unit)}',
                         ),
                         const SizedBox(height: 8),
-                        _buildDetailRow(
-                          Icons.opacity,
-                          '${forecast.humidity}%',
-                        ),
+                        _buildDetailRow(Icons.opacity, '${forecast.humidity}%'),
                         if (forecast.uvIndex != null) ...[
                           const SizedBox(height: 8),
                           _buildDetailRow(
@@ -188,11 +183,7 @@ class DailyForecastList extends ConsumerWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(
-          icon,
-          size: 16,
-          color: Colors.white.withOpacity(0.7),
-        ),
+        Icon(icon, size: 16, color: Colors.white.withOpacity(0.7)),
         const SizedBox(width: 4),
         Text(
           text,

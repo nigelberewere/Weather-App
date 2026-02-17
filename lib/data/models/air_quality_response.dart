@@ -7,10 +7,7 @@ class AirQualityResponse {
   final AirQualityCoord coord;
   final List<AirQualityItem> list;
 
-  AirQualityResponse({
-    required this.coord,
-    required this.list,
-  });
+  AirQualityResponse({required this.coord, required this.list});
 
   factory AirQualityResponse.fromJson(Map<String, dynamic> json) =>
       _$AirQualityResponseFromJson(json);

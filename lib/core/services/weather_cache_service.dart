@@ -33,7 +33,7 @@ class WeatherCacheService {
         _fieldCachedAt: DateTime.now().millisecondsSinceEpoch,
         _fieldUnits: units,
       });
-      
+
       debugPrint('✓ Cached current weather for $locationKey ($units)');
     } catch (e) {
       debugPrint('✗ Error caching weather: $e');
@@ -66,7 +66,9 @@ class WeatherCacheService {
       final payload = cached[_fieldPayload] as String?;
       if (payload == null) return null;
       final weather = _decodeWeather(payload);
-      debugPrint('✓ Using cached weather (age: ${DateTime.now().difference(cachedAt).inMinutes}m)');
+      debugPrint(
+        '✓ Using cached weather (age: ${DateTime.now().difference(cachedAt).inMinutes}m)',
+      );
       return weather;
     } catch (e) {
       debugPrint('✗ Error retrieving cached weather: $e');
@@ -92,7 +94,7 @@ class WeatherCacheService {
         _fieldCachedAt: DateTime.now().millisecondsSinceEpoch,
         _fieldUnits: units,
       });
-      
+
       debugPrint('✓ Cached hourly forecast for $locationKey ($units)');
     } catch (e) {
       debugPrint('✗ Error caching hourly forecast: $e');
@@ -125,7 +127,9 @@ class WeatherCacheService {
       final payload = cached[_fieldPayload] as String?;
       if (payload == null) return null;
       final forecast = _decodeHourlyForecast(payload);
-      debugPrint('✓ Using cached hourly forecast (age: ${DateTime.now().difference(cachedAt).inMinutes}m)');
+      debugPrint(
+        '✓ Using cached hourly forecast (age: ${DateTime.now().difference(cachedAt).inMinutes}m)',
+      );
       return forecast;
     } catch (e) {
       debugPrint('✗ Error retrieving cached hourly forecast: $e');
@@ -151,7 +155,7 @@ class WeatherCacheService {
         _fieldCachedAt: DateTime.now().millisecondsSinceEpoch,
         _fieldUnits: units,
       });
-      
+
       debugPrint('✓ Cached daily forecast for $locationKey ($units)');
     } catch (e) {
       debugPrint('✗ Error caching daily forecast: $e');
@@ -184,7 +188,9 @@ class WeatherCacheService {
       final payload = cached[_fieldPayload] as String?;
       if (payload == null) return null;
       final forecast = _decodeDailyForecast(payload);
-      debugPrint('✓ Using cached daily forecast (age: ${DateTime.now().difference(cachedAt).inMinutes}m)');
+      debugPrint(
+        '✓ Using cached daily forecast (age: ${DateTime.now().difference(cachedAt).inMinutes}m)',
+      );
       return forecast;
     } catch (e) {
       debugPrint('✗ Error retrieving cached daily forecast: $e');

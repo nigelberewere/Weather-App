@@ -10,16 +10,17 @@ class NotificationService {
 
   final FlutterLocalNotificationsPlugin _notifications =
       FlutterLocalNotificationsPlugin();
-  
+
   bool _isInitialized = false;
 
   Future<void> initialize() async {
     if (_isInitialized) return;
 
     try {
-      const initializationSettingsAndroid =
-          AndroidInitializationSettings('@mipmap/launcher_icon');
-      
+      const initializationSettingsAndroid = AndroidInitializationSettings(
+        '@mipmap/launcher_icon',
+      );
+
       const initializationSettingsIOS = DarwinInitializationSettings(
         requestAlertPermission: true,
         requestBadgePermission: true,
@@ -51,22 +52,26 @@ class NotificationService {
 
   Future<bool> requestPermission() async {
     if (!_isInitialized) await initialize();
-    
+
     try {
       if (defaultTargetPlatform == TargetPlatform.android) {
-        final androidImplementation = 
-            _notifications.resolvePlatformSpecificImplementation<
-                AndroidFlutterLocalNotificationsPlugin>();
-        return await androidImplementation?.requestNotificationsPermission() ?? false;
+        final androidImplementation = _notifications
+            .resolvePlatformSpecificImplementation<
+              AndroidFlutterLocalNotificationsPlugin
+            >();
+        return await androidImplementation?.requestNotificationsPermission() ??
+            false;
       } else if (defaultTargetPlatform == TargetPlatform.iOS) {
-        final iosImplementation =
-            _notifications.resolvePlatformSpecificImplementation<
-                IOSFlutterLocalNotificationsPlugin>();
+        final iosImplementation = _notifications
+            .resolvePlatformSpecificImplementation<
+              IOSFlutterLocalNotificationsPlugin
+            >();
         return await iosImplementation?.requestPermissions(
-          alert: true,
-          badge: true,
-          sound: true,
-        ) ?? false;
+              alert: true,
+              badge: true,
+              sound: true,
+            ) ??
+            false;
       }
       return true; // Other platforms
     } catch (e) {
@@ -87,7 +92,9 @@ class NotificationService {
           importance: _getImportance(alert.severity),
           priority: Priority.high,
           showWhen: true,
-          largeIcon: const DrawableResourceAndroidBitmap('ic_launcher_foreground'),
+          largeIcon: const DrawableResourceAndroidBitmap(
+            'ic_launcher_foreground',
+          ),
           enableLights: true,
           enableVibration: true,
         ),
@@ -105,7 +112,7 @@ class NotificationService {
         notificationDetails,
         payload: 'alert:${alert.event}',
       );
-      
+
       debugPrint('Weather alert notification shown: ${alert.event}');
     } catch (e) {
       debugPrint('Failed to show weather alert: $e');
@@ -148,7 +155,7 @@ class NotificationService {
         notificationDetails,
         payload: 'daily_summary',
       );
-      
+
       debugPrint('Daily summary notification shown');
     } catch (e) {
       debugPrint('Failed to show daily summary: $e');

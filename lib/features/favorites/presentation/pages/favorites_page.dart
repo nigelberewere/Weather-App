@@ -17,10 +17,7 @@ final favoritesProvider = FutureProvider<List<Location>>((ref) async {
 class FavoritesPage extends ConsumerWidget {
   final ValueChanged<Location> onLocationSelected;
 
-  const FavoritesPage({
-    super.key,
-    required this.onLocationSelected,
-  });
+  const FavoritesPage({super.key, required this.onLocationSelected});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -28,9 +25,7 @@ class FavoritesPage extends ConsumerWidget {
     final favoritesAsync = ref.watch(favoritesProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(l10n.favorites),
-      ),
+      appBar: AppBar(title: Text(l10n.favorites)),
       body: favoritesAsync.when(
         data: (favorites) {
           if (favorites.isEmpty) {
@@ -38,7 +33,11 @@ class FavoritesPage extends ConsumerWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.favorite_border, size: 64, color: Colors.grey[400]),
+                  Icon(
+                    Icons.favorite_border,
+                    size: 64,
+                    color: Colors.grey[400],
+                  ),
                   const SizedBox(height: 16),
                   Text(
                     l10n.noFavoriteLocations,
@@ -147,10 +146,7 @@ class FavoriteWeatherTile extends ConsumerWidget {
                       ),
                       Text(
                         weather.description,
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey[600],
-                        ),
+                        style: TextStyle(fontSize: 12, color: Colors.grey[600]),
                       ),
                     ],
                   ),
@@ -169,10 +165,7 @@ class FavoriteWeatherTile extends ConsumerWidget {
               ),
               error: (_, __) => const SizedBox.shrink(),
             ),
-            IconButton(
-              icon: const Icon(Icons.delete),
-              onPressed: onRemove,
-            ),
+            IconButton(icon: const Icon(Icons.delete), onPressed: onRemove),
           ],
         ),
         onTap: onTap,

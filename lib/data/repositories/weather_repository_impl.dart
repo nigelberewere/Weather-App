@@ -13,7 +13,7 @@ import 'package:collection/collection.dart';
 class WeatherRepositoryImpl implements WeatherRepository {
   final WeatherApiClient _apiClient;
   final WeatherCacheService _cacheService;
-  
+
   String get _apiKey {
     try {
       final key = dotenv.env['OPENWEATHER_API_KEY'];
@@ -48,15 +48,15 @@ class WeatherRepositoryImpl implements WeatherRepository {
   double _calculateDewPoint(double temperature, int humidity) {
     if (humidity <= 0) return temperature - 50;
     if (humidity >= 100) return temperature;
-    
+
     // Magnus formula constants for better accuracy
     const double a = 17.27;
     const double b = 237.7; // For Celsius
-    
+
     final double rh = humidity / 100.0;
     final double alpha = ((a * temperature) / (b + temperature)) + math.log(rh);
     final double dewPoint = (b * alpha) / (a - alpha);
-    
+
     return dewPoint;
   }
 
@@ -99,7 +99,10 @@ class WeatherRepositoryImpl implements WeatherRepository {
         windDegree: response.wind.deg,
         pressure: response.main.pressure,
         visibility: (response.visibility / 1000).round(), // meters to km
-        dewPoint: _calculateDewPoint(response.main.temp, response.main.humidity),
+        dewPoint: _calculateDewPoint(
+          response.main.temp,
+          response.main.humidity,
+        ),
         uvIndex: uvIndex,
         sunrise: DateTime.fromMillisecondsSinceEpoch(
           response.sys.sunrise! * 1000,
@@ -130,12 +133,12 @@ class WeatherRepositoryImpl implements WeatherRepository {
         longitude: longitude,
         units: units,
       );
-      
+
       if (cachedWeather != null) {
         debugPrint('📦 Returning cached weather due to network error');
         return (data: cachedWeather, error: null);
       }
-      
+
       return (data: null, error: _handleDioError(e));
     } catch (e) {
       // Try to get cached data on unknown error
@@ -144,11 +147,11 @@ class WeatherRepositoryImpl implements WeatherRepository {
         longitude: longitude,
         units: units,
       );
-      
+
       if (cachedWeather != null) {
         return (data: cachedWeather, error: null);
       }
-      
+
       return (data: null, error: AppError.unknown(e.toString()));
     }
   }
@@ -202,12 +205,12 @@ class WeatherRepositoryImpl implements WeatherRepository {
         longitude: longitude,
         units: units,
       );
-      
+
       if (cachedForecast != null) {
         debugPrint('📦 Returning cached hourly forecast due to network error');
         return (data: cachedForecast, error: null);
       }
-      
+
       return (data: null, error: _handleDioError(e));
     } catch (e) {
       // Try to get cached data on unknown error
@@ -216,11 +219,11 @@ class WeatherRepositoryImpl implements WeatherRepository {
         longitude: longitude,
         units: units,
       );
-      
+
       if (cachedForecast != null) {
         return (data: cachedForecast, error: null);
       }
-      
+
       return (data: null, error: AppError.unknown(e.toString()));
     }
   }
@@ -379,7 +382,7 @@ class WeatherRepositoryImpl implements WeatherRepository {
       // Generate alerts based on current weather conditions
       // This provides intelligent alerts based on severe weather patterns
       // without requiring a paid subscription to OpenWeatherMap's One Call API
-      
+
       final currentWeatherResult = await getCurrentWeather(
         latitude: latitude,
         longitude: longitude,
@@ -395,80 +398,98 @@ class WeatherRepositoryImpl implements WeatherRepository {
 
       // Extreme temperature alerts
       if (weather.temperature > 40) {
-        alerts.add(WeatherAlert(
-          event: 'Extreme Heat Warning',
-          description: 'Temperature is ${weather.temperature.round()}°C. '
-              'Stay hydrated and avoid prolonged sun exposure.',
-          start: now,
-          end: now.add(const Duration(hours: 6)),
-          severity: 'Extreme',
-          senderName: 'Weatherly Alert System',
-        ));
+        alerts.add(
+          WeatherAlert(
+            event: 'Extreme Heat Warning',
+            description:
+                'Temperature is ${weather.temperature.round()}°C. '
+                'Stay hydrated and avoid prolonged sun exposure.',
+            start: now,
+            end: now.add(const Duration(hours: 6)),
+            severity: 'Extreme',
+            senderName: 'Weatherly Alert System',
+          ),
+        );
       } else if (weather.temperature < -20) {
-        alerts.add(WeatherAlert(
-          event: 'Extreme Cold Warning',
-          description: 'Temperature is ${weather.temperature.round()}°C. '
-              'Dress warmly and limit time outdoors.',
-          start: now,
-          end: now.add(const Duration(hours: 6)),
-          severity: 'Extreme',
-          senderName: 'Weatherly Alert System',
-        ));
+        alerts.add(
+          WeatherAlert(
+            event: 'Extreme Cold Warning',
+            description:
+                'Temperature is ${weather.temperature.round()}°C. '
+                'Dress warmly and limit time outdoors.',
+            start: now,
+            end: now.add(const Duration(hours: 6)),
+            severity: 'Extreme',
+            senderName: 'Weatherly Alert System',
+          ),
+        );
       }
 
       // High wind alerts
       if (weather.windSpeed > 50) {
-        alerts.add(WeatherAlert(
-          event: 'High Wind Warning',
-          description: 'Wind speed is ${weather.windSpeed.round()} km/h. '
-              'Secure loose objects and avoid outdoor activities.',
-          start: now,
-          end: now.add(const Duration(hours: 3)),
-          severity: 'Severe',
-          senderName: 'Weatherly Alert System',
-        ));
+        alerts.add(
+          WeatherAlert(
+            event: 'High Wind Warning',
+            description:
+                'Wind speed is ${weather.windSpeed.round()} km/h. '
+                'Secure loose objects and avoid outdoor activities.',
+            start: now,
+            end: now.add(const Duration(hours: 3)),
+            severity: 'Severe',
+            senderName: 'Weatherly Alert System',
+          ),
+        );
       }
 
       // Severe weather condition alerts
       if (weather.condition != null) {
         final condition = weather.condition!.toLowerCase();
-        
+
         if (condition.contains('thunderstorm')) {
-          alerts.add(WeatherAlert(
-            event: 'Thunderstorm Alert',
-            description: 'Thunderstorms in the area. Seek shelter indoors '
-                'and avoid open areas.',
-            start: now,
-            end: now.add(const Duration(hours: 2)),
-            severity: 'Moderate',
-            senderName: 'Weatherly Alert System',
-          ));
+          alerts.add(
+            WeatherAlert(
+              event: 'Thunderstorm Alert',
+              description:
+                  'Thunderstorms in the area. Seek shelter indoors '
+                  'and avoid open areas.',
+              start: now,
+              end: now.add(const Duration(hours: 2)),
+              severity: 'Moderate',
+              senderName: 'Weatherly Alert System',
+            ),
+          );
         }
-        
+
         if (condition.contains('snow')) {
-          alerts.add(WeatherAlert(
-            event: 'Snow Alert',
-            description: 'Snowfall expected. Drive carefully and prepare '
-                'for slippery conditions.',
-            start: now,
-            end: now.add(const Duration(hours: 4)),
-            severity: 'Moderate',
-            senderName: 'Weatherly Alert System',
-          ));
+          alerts.add(
+            WeatherAlert(
+              event: 'Snow Alert',
+              description:
+                  'Snowfall expected. Drive carefully and prepare '
+                  'for slippery conditions.',
+              start: now,
+              end: now.add(const Duration(hours: 4)),
+              severity: 'Moderate',
+              senderName: 'Weatherly Alert System',
+            ),
+          );
         }
       }
 
       // Poor visibility alert
       if (weather.visibility < 1) {
-        alerts.add(WeatherAlert(
-          event: 'Low Visibility Warning',
-          description: 'Visibility is less than 1km. Exercise caution '
-              'when traveling.',
-          start: now,
-          end: now.add(const Duration(hours: 2)),
-          severity: 'Moderate',
-          senderName: 'Weatherly Alert System',
-        ));
+        alerts.add(
+          WeatherAlert(
+            event: 'Low Visibility Warning',
+            description:
+                'Visibility is less than 1km. Exercise caution '
+                'when traveling.',
+            start: now,
+            end: now.add(const Duration(hours: 2)),
+            severity: 'Moderate',
+            senderName: 'Weatherly Alert System',
+          ),
+        );
       }
 
       return (data: alerts, error: null);

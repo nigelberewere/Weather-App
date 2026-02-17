@@ -6,11 +6,7 @@ class WeatherAlertBanner extends StatelessWidget {
   final List<WeatherAlert> alerts;
   final VoidCallback? onTap;
 
-  const WeatherAlertBanner({
-    super.key,
-    required this.alerts,
-    this.onTap,
-  });
+  const WeatherAlertBanner({super.key, required this.alerts, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -57,11 +53,7 @@ class WeatherAlertBanner extends StatelessWidget {
                   ],
                 ),
               ),
-              const Icon(
-                Icons.chevron_right,
-                color: Colors.white,
-                size: 20,
-              ),
+              const Icon(Icons.chevron_right, color: Colors.white, size: 20),
             ],
           ),
         ),
@@ -71,13 +63,13 @@ class WeatherAlertBanner extends StatelessWidget {
 
   WeatherAlert _getMostSevereAlert(List<WeatherAlert> alerts) {
     final severityOrder = ['Extreme', 'Severe', 'Moderate', 'Minor'];
-    
+
     alerts.sort((a, b) {
       final aIndex = severityOrder.indexOf(a.severity);
       final bIndex = severityOrder.indexOf(b.severity);
       return aIndex.compareTo(bIndex);
     });
-    
+
     return alerts.first;
   }
 

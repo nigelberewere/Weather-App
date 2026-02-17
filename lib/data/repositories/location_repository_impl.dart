@@ -12,7 +12,7 @@ import 'package:weatherly/domain/repositories/location_repository.dart';
 class LocationRepositoryImpl implements LocationRepository {
   static const String _favoritesBoxName = 'favorites';
   final WeatherApiClient _apiClient;
-  
+
   String get _apiKey {
     try {
       return dotenv.env['OPENWEATHER_API_KEY'] ?? 'demo_key_for_testing';
@@ -60,13 +60,14 @@ class LocationRepositoryImpl implements LocationRepository {
       }
 
       debugPrint('LocationRepository: Fetching position...');
-      final position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high,
-        timeLimit: const Duration(seconds: 30),
-      ).timeout(
-        const Duration(seconds: 35),
-        onTimeout: () => throw AppError.location('Location fetch timeout'),
-      );
+      final position =
+          await Geolocator.getCurrentPosition(
+            desiredAccuracy: LocationAccuracy.high,
+            timeLimit: const Duration(seconds: 30),
+          ).timeout(
+            const Duration(seconds: 35),
+            onTimeout: () => throw AppError.location('Location fetch timeout'),
+          );
       debugPrint(
         'LocationRepository: Position fetched: ${position.latitude}, ${position.longitude}',
       );
@@ -103,13 +104,13 @@ class LocationRepositoryImpl implements LocationRepository {
           debugPrint(
             'LocationRepository: Attempting API fallback for reverse geocoding...',
           );
-          final results = await _apiClient.searchLocations(
-            lat: position.latitude,
-            lon: position.longitude,
-            apiKey: _apiKey,
-          ).timeout(
-            const Duration(seconds: 20),
-          );
+          final results = await _apiClient
+              .searchLocations(
+                lat: position.latitude,
+                lon: position.longitude,
+                apiKey: _apiKey,
+              )
+              .timeout(const Duration(seconds: 20));
 
           if (results.isNotEmpty) {
             final result = results.first;
@@ -123,7 +124,8 @@ class LocationRepositoryImpl implements LocationRepository {
         } catch (apiError) {
           debugPrint('LocationRepository: API fallback failed: $apiError');
           // Use a sensible fallback name based on coordinates
-          locationName = 'Location (${position.latitude.toStringAsFixed(2)}, ${position.longitude.toStringAsFixed(2)})';
+          locationName =
+              'Location (${position.latitude.toStringAsFixed(2)}, ${position.longitude.toStringAsFixed(2)})';
         }
       }
 

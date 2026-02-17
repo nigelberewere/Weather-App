@@ -34,19 +34,19 @@ void main() {
 
     test('gets relative time correctly', () {
       final now = DateTime.now();
-      
+
       // Just now
       final justNow = now.subtract(const Duration(seconds: 30));
       expect(DateFormatter.getRelativeTime(justNow), 'Just now');
-      
+
       // Minutes ago
       final minutesAgo = now.subtract(const Duration(minutes: 5));
       expect(DateFormatter.getRelativeTime(minutesAgo), '5m ago');
-      
+
       // Hours ago
       final hoursAgo = now.subtract(const Duration(hours: 2));
       expect(DateFormatter.getRelativeTime(hoursAgo), '2h ago');
-      
+
       // Days ago
       final daysAgo = now.subtract(const Duration(days: 3));
       expect(DateFormatter.getRelativeTime(daysAgo), '3d ago');

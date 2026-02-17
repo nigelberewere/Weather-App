@@ -9,8 +9,9 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('Settings Persistence Flow Integration Tests', () {
-    testWidgets('User can navigate to settings page from home',
-        (WidgetTester tester) async {
+    testWidgets('User can navigate to settings page from home', (
+      WidgetTester tester,
+    ) async {
       await buildTestApp(tester);
       await waitForLoadingComplete(tester);
 
@@ -28,8 +29,9 @@ void main() {
       }
     });
 
-    testWidgets('Settings page displays theme preference option',
-        (WidgetTester tester) async {
+    testWidgets('Settings page displays theme preference option', (
+      WidgetTester tester,
+    ) async {
       await buildTestApp(tester);
       await waitForLoadingComplete(tester);
 
@@ -40,23 +42,18 @@ void main() {
         await pumpAndSettle(tester);
 
         // Look for theme-related text
-        expect(
-          find.byType(SettingsPage),
-          findsOneWidget,
-        );
+        expect(find.byType(SettingsPage), findsOneWidget);
 
-        final themeFound = find.textContaining('Theme').evaluate().isNotEmpty ||
+        final themeFound =
+            find.textContaining('Theme').evaluate().isNotEmpty ||
             find.textContaining('theme').evaluate().isNotEmpty;
-        expect(
-          themeFound,
-          true,
-          reason: 'Should display theme preference',
-        );
+        expect(themeFound, true, reason: 'Should display theme preference');
       }
     });
 
-    testWidgets('User can change theme preference',
-        (WidgetTester tester) async {
+    testWidgets('User can change theme preference', (
+      WidgetTester tester,
+    ) async {
       await buildTestApp(tester);
       await waitForLoadingComplete(tester);
 
@@ -85,8 +82,9 @@ void main() {
       }
     });
 
-    testWidgets('User can change temperature unit preference',
-        (WidgetTester tester) async {
+    testWidgets('User can change temperature unit preference', (
+      WidgetTester tester,
+    ) async {
       await buildTestApp(tester);
       await waitForLoadingComplete(tester);
 
@@ -97,9 +95,10 @@ void main() {
         await pumpAndSettle(tester);
 
         // Look for temperature unit preference
-        final unitFound = find.textContaining('Temperature').evaluate().isNotEmpty
-            || find.textContaining('Unit').evaluate().isNotEmpty;
-        
+        final unitFound =
+            find.textContaining('Temperature').evaluate().isNotEmpty ||
+            find.textContaining('Unit').evaluate().isNotEmpty;
+
         if (unitFound) {
           // Try to find and click temperature unit selector
           final dropdowns = find.byType(DropdownButton);
@@ -119,8 +118,9 @@ void main() {
       }
     });
 
-    testWidgets('Settings changes persist after navigation away and back',
-        (WidgetTester tester) async {
+    testWidgets('Settings changes persist after navigation away and back', (
+      WidgetTester tester,
+    ) async {
       await buildTestApp(tester);
       await waitForLoadingComplete(tester);
 
@@ -163,8 +163,9 @@ void main() {
       }
     });
 
-    testWidgets('Settings are persisted across app restarts',
-        (WidgetTester tester) async {
+    testWidgets('Settings are persisted across app restarts', (
+      WidgetTester tester,
+    ) async {
       await buildTestApp(tester);
       await waitForLoadingComplete(tester);
 
@@ -185,8 +186,9 @@ void main() {
       }
     });
 
-    testWidgets('User can reset settings to defaults',
-        (WidgetTester tester) async {
+    testWidgets('User can reset settings to defaults', (
+      WidgetTester tester,
+    ) async {
       await buildTestApp(tester);
       await waitForLoadingComplete(tester);
 
@@ -220,8 +222,9 @@ void main() {
       }
     });
 
-    testWidgets('Notification settings are persisted',
-        (WidgetTester tester) async {
+    testWidgets('Notification settings are persisted', (
+      WidgetTester tester,
+    ) async {
       await buildTestApp(tester);
       await waitForLoadingComplete(tester);
 
@@ -232,9 +235,11 @@ void main() {
         await pumpAndSettle(tester);
 
         // Look for notification settings
-        final notificationFound =
-            find.textContaining('Notification').evaluate().isNotEmpty;
-        
+        final notificationFound = find
+            .textContaining('Notification')
+            .evaluate()
+            .isNotEmpty;
+
         if (notificationFound) {
           // Scroll to find notification settings if needed
           final notificationButton = find.textContaining('Notification').first;

@@ -8,11 +8,7 @@ class WeatherApiResponse {
   final Map<String, dynamic>? current;
   final Map<String, dynamic>? forecast;
 
-  WeatherApiResponse({
-    this.location,
-    this.current,
-    this.forecast,
-  });
+  WeatherApiResponse({this.location, this.current, this.forecast});
 
   factory WeatherApiResponse.fromJson(Map<String, dynamic> json) =>
       _$WeatherApiResponseFromJson(json);

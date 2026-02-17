@@ -8,10 +8,10 @@ import 'package:weatherly/core/services/background_fetch_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   // Initialize Hive
   await Hive.initFlutter();
-  
+
   // Load environment variables
   try {
     await dotenv.load(fileName: '.env');
@@ -27,9 +27,5 @@ void main() async {
   await BackgroundFetchService.initializeBackgroundFetch();
   await BackgroundFetchService.startBackgroundFetch();
 
-  runApp(
-    const ProviderScope(
-      child: WeatherlyApp(),
-    ),
-  );
+  runApp(const ProviderScope(child: WeatherlyApp()));
 }

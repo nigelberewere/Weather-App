@@ -49,7 +49,8 @@ class AppLocalizations {
   String get searchForCity => 'Search for a city';
   String get noLocationsFound => 'No locations found';
   String get noFavoriteLocations => 'No favorite locations';
-  String get addLocationsToFavorites => 'Add locations to favorites from the search page';
+  String get addLocationsToFavorites =>
+      'Add locations to favorites from the search page';
   String get selectLocation => 'Please select a location';
   String get noForecastData => 'No forecast data available';
   String get error => 'Error';

@@ -44,22 +44,24 @@ final currentWeatherProvider = FutureProvider.family<Weather?, Location>((
   try {
     final repository = ref.watch(weatherRepositoryProvider);
     final unitsAsync = ref.watch(weatherApiUnitsProvider);
-    
+
     final units = await unitsAsync.when<Future<String>>(
       data: (u) async => u,
       loading: () async => 'metric',
       error: (_, __) async => 'metric',
     );
-    
-    final result = await repository.getCurrentWeather(
-      latitude: location.latitude,
-      longitude: location.longitude,
-      units: units,
-    ).timeout(
-      const Duration(seconds: 45),
-      onTimeout: () => throw TimeoutException('Weather fetch timed out'),
-    );
-    
+
+    final result = await repository
+        .getCurrentWeather(
+          latitude: location.latitude,
+          longitude: location.longitude,
+          units: units,
+        )
+        .timeout(
+          const Duration(seconds: 45),
+          onTimeout: () => throw TimeoutException('Weather fetch timed out'),
+        );
+
     if (result.error != null) {
       // Return null instead of throwing to show loading state
       return null;
@@ -78,15 +80,18 @@ final airQualityProvider = FutureProvider.family<AirQuality?, Location>((
 ) async {
   try {
     final repository = ref.watch(weatherRepositoryProvider);
-    
-    final result = await repository.getAirQuality(
-      latitude: location.latitude,
-      longitude: location.longitude,
-    ).timeout(
-      const Duration(seconds: 45),
-      onTimeout: () => throw TimeoutException('Air quality fetch timed out'),
-    );
-    
+
+    final result = await repository
+        .getAirQuality(
+          latitude: location.latitude,
+          longitude: location.longitude,
+        )
+        .timeout(
+          const Duration(seconds: 45),
+          onTimeout: () =>
+              throw TimeoutException('Air quality fetch timed out'),
+        );
+
     if (result.error != null) {
       return null; // Show loading state
     }

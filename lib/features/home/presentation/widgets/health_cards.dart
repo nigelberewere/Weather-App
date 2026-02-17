@@ -143,8 +143,10 @@ class AirQualityCard extends ConsumerWidget {
                   ),
                   const SizedBox(height: 10),
                   Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 10,
+                    ),
                     decoration: BoxDecoration(
                       color: aqiColor.withOpacity(0.2),
                       borderRadius: BorderRadius.circular(12),
@@ -326,8 +328,10 @@ class UVHealthGuidanceCard extends ConsumerWidget {
                   ),
                   const SizedBox(height: 10),
                   Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 10,
+                    ),
                     decoration: BoxDecoration(
                       color: uvColor.withOpacity(0.2),
                       borderRadius: BorderRadius.circular(12),
@@ -390,10 +394,7 @@ class UVHealthGuidanceCard extends ConsumerWidget {
             decoration: BoxDecoration(
               color: uvColor.withOpacity(0.08),
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                color: uvColor.withOpacity(0.2),
-                width: 1,
-              ),
+              border: Border.all(color: uvColor.withOpacity(0.2), width: 1),
             ),
             child: Text(
               uvRecommendation,

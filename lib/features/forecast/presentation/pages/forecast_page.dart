@@ -174,19 +174,14 @@ class ForecastPage extends ConsumerWidget {
                 ),
               ),
             ),
-            SliverFillRemaining(
-              child: HourlyForecastList(forecasts: forecast),
-            ),
+            SliverFillRemaining(child: HourlyForecastList(forecasts: forecast)),
           ],
         );
       },
-      loading: () => const EnhancedLoadingIndicator(
-        message: 'Loading hourly forecast...',
-      ),
-      error: (error, stack) => EnhancedErrorDisplay(
-        message: l10n.error,
-        subtitle: error.toString(),
-      ),
+      loading: () =>
+          const EnhancedLoadingIndicator(message: 'Loading hourly forecast...'),
+      error: (error, stack) =>
+          EnhancedErrorDisplay(message: l10n.error, subtitle: error.toString()),
     );
   }
 
@@ -238,19 +233,14 @@ class ForecastPage extends ConsumerWidget {
                 ),
               ),
             ),
-            SliverFillRemaining(
-              child: DailyForecastList(forecasts: forecast),
-            ),
+            SliverFillRemaining(child: DailyForecastList(forecasts: forecast)),
           ],
         );
       },
-      loading: () => const EnhancedLoadingIndicator(
-        message: 'Loading daily forecast...',
-      ),
-      error: (error, stack) => EnhancedErrorDisplay(
-        message: l10n.error,
-        subtitle: error.toString(),
-      ),
+      loading: () =>
+          const EnhancedLoadingIndicator(message: 'Loading daily forecast...'),
+      error: (error, stack) =>
+          EnhancedErrorDisplay(message: l10n.error, subtitle: error.toString()),
     );
   }
 }

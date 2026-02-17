@@ -58,7 +58,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
   Future<void> _completeOnboarding() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('has_seen_onboarding', true);
-    
+
     if (mounted) {
       // Navigate to home page and remove the onboarding page from the stack
       await Navigator.of(context).pushReplacement(

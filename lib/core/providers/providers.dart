@@ -9,11 +9,13 @@ import 'package:weatherly/domain/repositories/location_repository.dart';
 import 'package:weatherly/domain/repositories/weather_repository.dart';
 
 final dioProvider = Provider<Dio>((ref) {
-  final dio = Dio(BaseOptions(
-    baseUrl: AppConstants.weatherApiBaseUrl,
-    connectTimeout: AppConstants.connectTimeout,
-    receiveTimeout: AppConstants.receiveTimeout,
-  ));
+  final dio = Dio(
+    BaseOptions(
+      baseUrl: AppConstants.weatherApiBaseUrl,
+      connectTimeout: AppConstants.connectTimeout,
+      receiveTimeout: AppConstants.receiveTimeout,
+    ),
+  );
   return dio;
 });
 

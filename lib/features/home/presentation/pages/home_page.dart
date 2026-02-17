@@ -59,7 +59,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     final l10n = AppLocalizations.of(context)!;
 
     final locationAsync = ref.watch(currentLocationProvider);
-    
+
     // Initialize alert monitoring
     ref.watch(alertMonitoringProvider);
 
@@ -214,7 +214,10 @@ class _HomePageState extends ConsumerState<HomePage> {
                             weather: weather,
                             unit: unit,
                           );
-                          Share.share(text, subject: 'Weather in ${location.name}');
+                          Share.share(
+                            text,
+                            subject: 'Weather in ${location.name}',
+                          );
                         },
                         orElse: () => null,
                       ),
@@ -223,11 +226,13 @@ class _HomePageState extends ConsumerState<HomePage> {
                 ),
                 // Weather alerts banner
                 SliverToBoxAdapter(
-                  child: ref.watch(weatherAlertsProvider(location)).when(
-                    data: (alerts) => WeatherAlertBanner(alerts: alerts),
-                    loading: () => const SizedBox.shrink(),
-                    error: (_, __) => const SizedBox.shrink(),
-                  ),
+                  child: ref
+                      .watch(weatherAlertsProvider(location))
+                      .when(
+                        data: (alerts) => WeatherAlertBanner(alerts: alerts),
+                        loading: () => const SizedBox.shrink(),
+                        error: (_, __) => const SizedBox.shrink(),
+                      ),
                 ),
                 SliverPadding(
                   padding: const EdgeInsets.all(24),
@@ -238,23 +243,31 @@ class _HomePageState extends ConsumerState<HomePage> {
                       WeatherDetailsCard(weather: weather),
                       const SizedBox(height: 32),
                       // Air Quality and UV Health Guidance Cards
-                      ref.watch(airQualityProvider(location)).when(
-                        data: (airQuality) {
-                          if (airQuality != null) {
-                            return Column(
-                              children: [
-                                AirQualityCard(airQuality: airQuality),
-                                const SizedBox(height: 20),
+                      ref
+                          .watch(airQualityProvider(location))
+                          .when(
+                            data: (airQuality) {
+                              if (airQuality != null) {
+                                return Column(
+                                  children: [
+                                    AirQualityCard(airQuality: airQuality),
+                                    const SizedBox(height: 20),
+                                    UVHealthGuidanceCard(
+                                      uvIndex: weather.uvIndex,
+                                    ),
+                                    const SizedBox(height: 80),
+                                  ],
+                                );
+                              }
+                              return UVHealthGuidanceCard(
+                                uvIndex: weather.uvIndex,
+                              );
+                            },
+                            loading: () =>
                                 UVHealthGuidanceCard(uvIndex: weather.uvIndex),
-                                const SizedBox(height: 80),
-                              ],
-                            );
-                          }
-                          return UVHealthGuidanceCard(uvIndex: weather.uvIndex);
-                        },
-                        loading: () => UVHealthGuidanceCard(uvIndex: weather.uvIndex),
-                        error: (_, __) => UVHealthGuidanceCard(uvIndex: weather.uvIndex),
-                      ),
+                            error: (_, __) =>
+                                UVHealthGuidanceCard(uvIndex: weather.uvIndex),
+                          ),
                     ]),
                   ),
                 ),
@@ -263,9 +276,8 @@ class _HomePageState extends ConsumerState<HomePage> {
           ),
         );
       },
-      loading: () => const EnhancedLoadingIndicator(
-        message: 'Loading weather data...',
-      ),
+      loading: () =>
+          const EnhancedLoadingIndicator(message: 'Loading weather data...'),
       error: (error, stack) => EnhancedErrorDisplay(
         message: l10n.error,
         subtitle: error.toString(),

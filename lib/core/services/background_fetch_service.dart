@@ -8,8 +8,9 @@ import 'package:weatherly/domain/entities/weather.dart';
 /// Service to manage background weather refresh tasks
 class BackgroundFetchService {
   static const String _taskId = 'weatherly_bg_fetch';
-  static const int _minIntervalMinutes = 15; // Background fetch minimum interval (OS enforced)
-  
+  static const int _minIntervalMinutes =
+      15; // Background fetch minimum interval (OS enforced)
+
   static final _container = ProviderContainer();
 
   /// Initialize background fetch for weather updates
@@ -60,13 +61,13 @@ class BackgroundFetchService {
   /// Handle background fetch callback
   static void _onBackgroundFetch(String taskId) async {
     debugPrint('⏳ Background fetch task executing: $taskId');
-    
+
     try {
       // Get the last known location from preferences
       final prefs = await SharedPreferences.getInstance();
       final lastLat = prefs.getDouble('last_location_lat');
       final lastLon = prefs.getDouble('last_location_lon');
-      
+
       if (lastLat != null && lastLon != null) {
         // Create a location object and fetch weather
         final location = Location(
@@ -86,7 +87,9 @@ class BackgroundFetchService {
         );
 
         if (result.data != null) {
-          debugPrint('✅ Background weather fetch successful for ${location.name}');
+          debugPrint(
+            '✅ Background weather fetch successful for ${location.name}',
+          );
         } else if (result.error != null) {
           debugPrint('⚠️ Background weather fetch error: ${result.error}');
         }
@@ -94,7 +97,7 @@ class BackgroundFetchService {
     } catch (e) {
       debugPrint('❌ Error in background fetch task: $e');
     }
-    
+
     // IMPORTANT: Must call finish when task is complete
     BackgroundFetch.finish(taskId);
   }

@@ -8,8 +8,9 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('Complete User Journey Integration Tests', () {
-    testWidgets('Full app startup and basic navigation',
-        (WidgetTester tester) async {
+    testWidgets('Full app startup and basic navigation', (
+      WidgetTester tester,
+    ) async {
       await buildTestApp(tester);
       await waitForLoadingComplete(tester);
 
@@ -25,8 +26,9 @@ void main() {
       expect(find.byType(BottomNavigationBar), findsWidgets);
     });
 
-    testWidgets('Navigation between tabs works correctly',
-        (WidgetTester tester) async {
+    testWidgets('Navigation between tabs works correctly', (
+      WidgetTester tester,
+    ) async {
       await buildTestApp(tester);
       await waitForLoadingComplete(tester);
 
@@ -42,8 +44,7 @@ void main() {
       }
     });
 
-    testWidgets('Weather data displays correctly',
-        (WidgetTester tester) async {
+    testWidgets('Weather data displays correctly', (WidgetTester tester) async {
       await buildTestApp(tester);
       await waitForLoadingComplete(tester);
 
@@ -58,8 +59,9 @@ void main() {
       expect(text, findsWidgets);
     });
 
-    testWidgets('App handles network errors gracefully',
-        (WidgetTester tester) async {
+    testWidgets('App handles network errors gracefully', (
+      WidgetTester tester,
+    ) async {
       await buildTestApp(tester);
       await waitForLoadingComplete(tester);
 
@@ -67,8 +69,9 @@ void main() {
       expect(find.byType(Scaffold), findsOneWidget);
     });
 
-    testWidgets('Pull-to-refresh functionality works',
-        (WidgetTester tester) async {
+    testWidgets('Pull-to-refresh functionality works', (
+      WidgetTester tester,
+    ) async {
       await buildTestApp(tester);
       await waitForLoadingComplete(tester);
 
@@ -76,8 +79,11 @@ void main() {
       final refreshIndicator = find.byType(RefreshIndicator);
       if (refreshIndicator.evaluate().isNotEmpty) {
         // Perform pull-to-refresh gesture
-        await tester.drag(find.byType(ListView).first, const Offset(0, 300),
-            warnIfMissed: false);
+        await tester.drag(
+          find.byType(ListView).first,
+          const Offset(0, 300),
+          warnIfMissed: false,
+        );
         await pumpAndSettle(tester);
 
         // Verify refresh completed
@@ -85,8 +91,9 @@ void main() {
       }
     });
 
-    testWidgets('Share functionality is available',
-        (WidgetTester tester) async {
+    testWidgets('Share functionality is available', (
+      WidgetTester tester,
+    ) async {
       await buildTestApp(tester);
       await waitForLoadingComplete(tester);
 
@@ -98,8 +105,9 @@ void main() {
       }
     });
 
-    testWidgets('Forecast pages are accessible and load',
-        (WidgetTester tester) async {
+    testWidgets('Forecast pages are accessible and load', (
+      WidgetTester tester,
+    ) async {
       await buildTestApp(tester);
       await waitForLoadingComplete(tester);
 
@@ -114,8 +122,7 @@ void main() {
       }
     });
 
-    testWidgets('Map page is accessible',
-        (WidgetTester tester) async {
+    testWidgets('Map page is accessible', (WidgetTester tester) async {
       await buildTestApp(tester);
       await waitForLoadingComplete(tester);
 
@@ -130,8 +137,7 @@ void main() {
       }
     });
 
-    testWidgets('Theme toggle works in settings',
-        (WidgetTester tester) async {
+    testWidgets('Theme toggle works in settings', (WidgetTester tester) async {
       await buildTestApp(tester);
       await waitForLoadingComplete(tester);
 

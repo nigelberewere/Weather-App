@@ -21,11 +21,16 @@ class WeatherDetailsCard extends ConsumerWidget {
     return unitAsync.when(
       data: (unit) => _buildDetails(context, l10n, unit),
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (error, stackTrace) => Center(child: Text('${l10n.error}: $error')),
+      error: (error, stackTrace) =>
+          Center(child: Text('${l10n.error}: $error')),
     );
   }
 
-  Widget _buildDetails(BuildContext context, AppLocalizations l10n, String unit) {
+  Widget _buildDetails(
+    BuildContext context,
+    AppLocalizations l10n,
+    String unit,
+  ) {
     final details = [
       _WeatherDetail(
         label: l10n.humidity,

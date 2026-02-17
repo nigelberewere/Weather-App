@@ -9,8 +9,9 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('Search to Select City Flow Integration Tests', () {
-    testWidgets('User can navigate to search page from home',
-        (WidgetTester tester) async {
+    testWidgets('User can navigate to search page from home', (
+      WidgetTester tester,
+    ) async {
       await buildTestApp(tester);
       await waitForLoadingComplete(tester);
 
@@ -29,8 +30,9 @@ void main() {
       }
     });
 
-    testWidgets('Search page displays search input field',
-        (WidgetTester tester) async {
+    testWidgets('Search page displays search input field', (
+      WidgetTester tester,
+    ) async {
       await buildTestApp(tester);
       await waitForLoadingComplete(tester);
 
@@ -46,8 +48,9 @@ void main() {
       }
     });
 
-    testWidgets('User can enter search query and see results',
-        (WidgetTester tester) async {
+    testWidgets('User can enter search query and see results', (
+      WidgetTester tester,
+    ) async {
       await buildTestApp(tester);
       await waitForLoadingComplete(tester);
 
@@ -78,8 +81,9 @@ void main() {
       }
     });
 
-    testWidgets('User can select a city from search results',
-        (WidgetTester tester) async {
+    testWidgets('User can select a city from search results', (
+      WidgetTester tester,
+    ) async {
       await buildTestApp(tester);
       await waitForLoadingComplete(tester);
 
@@ -116,8 +120,9 @@ void main() {
       }
     });
 
-    testWidgets('Search handles empty results gracefully',
-        (WidgetTester tester) async {
+    testWidgets('Search handles empty results gracefully', (
+      WidgetTester tester,
+    ) async {
       await buildTestApp(tester);
       await waitForLoadingComplete(tester);
 
@@ -147,8 +152,9 @@ void main() {
       }
     });
 
-    testWidgets('Recent searches are shown before typing',
-        (WidgetTester tester) async {
+    testWidgets('Recent searches are shown before typing', (
+      WidgetTester tester,
+    ) async {
       await buildTestApp(tester);
       await waitForLoadingComplete(tester);
 

@@ -4,8 +4,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 // Unit preference persistent provider
 final unitPreferenceProvider =
     AsyncNotifierProvider<UnitPreferenceNotifier, String>(
-  UnitPreferenceNotifier.new,
-);
+      UnitPreferenceNotifier.new,
+    );
 
 class UnitPreferenceNotifier extends AsyncNotifier<String> {
   @override

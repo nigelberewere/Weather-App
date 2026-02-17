@@ -19,9 +19,11 @@ class SettingsPage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(title: Text(l10n.settings)),
       body: unitPreferenceAsync.when(
-        data: (unitPreference) => _buildSettings(context, ref, l10n, themeMode, unitPreference),
+        data: (unitPreference) =>
+            _buildSettings(context, ref, l10n, themeMode, unitPreference),
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stackTrace) => Center(child: Text('${l10n.error}: $error')),
+        error: (error, stackTrace) =>
+            Center(child: Text('${l10n.error}: $error')),
       ),
     );
   }
@@ -233,13 +235,17 @@ class SettingsPage extends ConsumerWidget {
                       groupValue: currentUnit,
                       onChanged: (value) {
                         if (value != null) {
-                          ref.read(unitPreferenceProvider.notifier).setUnit(value);
+                          ref
+                              .read(unitPreferenceProvider.notifier)
+                              .setUnit(value);
                           Navigator.pop(context);
                         }
                       },
                     ),
                     onTap: () {
-                      ref.read(unitPreferenceProvider.notifier).setUnit('metric');
+                      ref
+                          .read(unitPreferenceProvider.notifier)
+                          .setUnit('metric');
                       Navigator.pop(context);
                     },
                   ),
@@ -250,13 +256,17 @@ class SettingsPage extends ConsumerWidget {
                       groupValue: currentUnit,
                       onChanged: (value) {
                         if (value != null) {
-                          ref.read(unitPreferenceProvider.notifier).setUnit(value);
+                          ref
+                              .read(unitPreferenceProvider.notifier)
+                              .setUnit(value);
                           Navigator.pop(context);
                         }
                       },
                     ),
                     onTap: () {
-                      ref.read(unitPreferenceProvider.notifier).setUnit('imperial');
+                      ref
+                          .read(unitPreferenceProvider.notifier)
+                          .setUnit('imperial');
                       Navigator.pop(context);
                     },
                   ),
@@ -267,13 +277,17 @@ class SettingsPage extends ConsumerWidget {
                       groupValue: currentUnit,
                       onChanged: (value) {
                         if (value != null) {
-                          ref.read(unitPreferenceProvider.notifier).setUnit(value);
+                          ref
+                              .read(unitPreferenceProvider.notifier)
+                              .setUnit(value);
                           Navigator.pop(context);
                         }
                       },
                     ),
                     onTap: () {
-                      ref.read(unitPreferenceProvider.notifier).setUnit('kelvin');
+                      ref
+                          .read(unitPreferenceProvider.notifier)
+                          .setUnit('kelvin');
                       Navigator.pop(context);
                     },
                   ),

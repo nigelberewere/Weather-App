@@ -7,18 +7,20 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('Location Permission Flow Integration Tests', () {
-    testWidgets('App shows location permission screen on first launch',
-        (WidgetTester tester) async {
+    testWidgets('App shows location permission screen on first launch', (
+      WidgetTester tester,
+    ) async {
       await buildTestApp(tester);
 
       // First load should show loading or permission request
       expect(find.byType(CircularProgressIndicator), findsWidgets);
     });
 
-    testWidgets('User can retry location permission after denial',
-        (WidgetTester tester) async {
+    testWidgets('User can retry location permission after denial', (
+      WidgetTester tester,
+    ) async {
       await buildTestApp(tester);
-      
+
       // Wait for initial load
       await waitForLoadingComplete(tester);
 
@@ -33,8 +35,9 @@ void main() {
       expect(find.byType(Scaffold), findsOneWidget);
     });
 
-    testWidgets('App displays location-based weather when permission granted',
-        (WidgetTester tester) async {
+    testWidgets('App displays location-based weather when permission granted', (
+      WidgetTester tester,
+    ) async {
       // This test assumes location permission is granted
       await buildTestApp(tester);
 
@@ -46,8 +49,9 @@ void main() {
       expect(weatherCard, findsWidgets);
     });
 
-    testWidgets('User can handle "permission denied" gracefully',
-        (WidgetTester tester) async {
+    testWidgets('User can handle "permission denied" gracefully', (
+      WidgetTester tester,
+    ) async {
       await buildTestApp(tester);
 
       // Wait for any initial setup
