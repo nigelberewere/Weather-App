@@ -48,7 +48,7 @@ final currentWeatherProvider = FutureProvider.family<Weather?, Location>((
     final units = await unitsAsync.when<Future<String>>(
       data: (u) async => u,
       loading: () async => 'metric',
-      error: (_, __) async => 'metric',
+      error: (error, stack) async => 'metric',
     );
 
     final result = await repository

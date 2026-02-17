@@ -66,7 +66,7 @@ class LocationRepositoryImpl implements LocationRepository {
             timeLimit: const Duration(seconds: 30),
           ).timeout(
             const Duration(seconds: 35),
-            onTimeout: () => throw AppError.location('Location fetch timeout'),
+            onTimeout: () => throw const AppError.location('Location fetch timeout'),
           );
       debugPrint(
         'LocationRepository: Position fetched: ${position.latitude}, ${position.longitude}',

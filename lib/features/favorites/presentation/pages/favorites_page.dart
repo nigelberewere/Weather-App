@@ -120,7 +120,7 @@ class FavoriteWeatherTile extends ConsumerWidget {
             height: 32,
             child: CircularProgressIndicator(strokeWidth: 2),
           ),
-          error: (_, __) => const Icon(Icons.cloud_off, color: Colors.grey),
+          error: (error, stack) => const Icon(Icons.cloud_off, color: Colors.grey),
         ),
         title: Text(location.name),
         subtitle: Text(subtitle),
@@ -155,7 +155,7 @@ class FavoriteWeatherTile extends ConsumerWidget {
                     height: 16,
                     child: CircularProgressIndicator(strokeWidth: 2),
                   ),
-                  error: (_, __) => const SizedBox.shrink(),
+                  error: (error, stack) => const SizedBox.shrink(),
                 );
               },
               loading: () => const SizedBox(
@@ -163,7 +163,7 @@ class FavoriteWeatherTile extends ConsumerWidget {
                 height: 16,
                 child: CircularProgressIndicator(strokeWidth: 2),
               ),
-              error: (_, __) => const SizedBox.shrink(),
+              error: (error, stack) => const SizedBox.shrink(),
             ),
             IconButton(icon: const Icon(Icons.delete), onPressed: onRemove),
           ],

@@ -110,7 +110,7 @@ class SettingsPage extends ConsumerWidget {
             title: Text('About'),
             subtitle: Text('Loading version...'),
           ),
-          error: (_, __) => const ListTile(
+          error: (error, stack) => const ListTile(
             leading: Icon(Icons.info_outlined),
             title: Text('About'),
             subtitle: Text('Version unavailable'),

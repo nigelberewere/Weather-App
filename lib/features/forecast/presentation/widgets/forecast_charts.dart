@@ -486,7 +486,7 @@ class DailyForecastChart extends ConsumerWidget {
                       );
                     },
                   ),
-                  gradient: LinearGradient(
+                  gradient: const LinearGradient(
                     colors: [Colors.redAccent, Colors.deepOrangeAccent],
                   ),
                   belowBarData: BarAreaData(
@@ -516,7 +516,7 @@ class DailyForecastChart extends ConsumerWidget {
                       );
                     },
                   ),
-                  gradient: LinearGradient(
+                  gradient: const LinearGradient(
                     colors: [Colors.lightBlueAccent, Colors.blueAccent],
                   ),
                   belowBarData: BarAreaData(

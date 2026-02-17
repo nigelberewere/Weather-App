@@ -39,7 +39,7 @@ final temperatureFormatProvider = FutureProvider<String>((ref) async {
   return unitAsync.when(
     data: (u) => u == 'metric' ? '°C' : '°F',
     loading: () => '°C',
-    error: (_, __) => '°C',
+    error: (error, stack) => '°C',
   );
 });
 
@@ -49,7 +49,7 @@ final weatherApiUnitsProvider = FutureProvider<String>((ref) async {
   return unitAsync.when(
     data: (u) => u,
     loading: () => 'metric',
-    error: (_, __) => 'metric',
+    error: (error, stack) => 'metric',
   );
 });
 
@@ -59,7 +59,7 @@ final windSpeedFormatProvider = FutureProvider<String>((ref) async {
   return unitAsync.when(
     data: (u) => u == 'metric' ? 'km/h' : 'mph',
     loading: () => 'km/h',
-    error: (_, __) => 'km/h',
+    error: (error, stack) => 'km/h',
   );
 });
 
@@ -69,6 +69,6 @@ final visibilityFormatProvider = FutureProvider<String>((ref) async {
   return unitAsync.when(
     data: (u) => u == 'metric' ? 'km' : 'mi',
     loading: () => 'km',
-    error: (_, __) => 'km',
+    error: (error, stack) => 'km',
   );
 });

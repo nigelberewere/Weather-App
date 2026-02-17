@@ -226,13 +226,13 @@ class WeatherCacheService {
     return Weather.fromJson(map);
   }
 
-  /// Helper: Encode List<HourlyForecast> to JSON string
+  /// Helper: Encode `List<HourlyForecast>` to JSON string
   static String _encodeHourlyForecast(List<HourlyForecast> forecasts) {
     final list = forecasts.map((f) => f.toJson()).toList();
     return jsonEncode(list);
   }
 
-  /// Helper: Decode List<HourlyForecast> from JSON string
+  /// Helper: Decode `List<HourlyForecast>` from JSON string
   static List<HourlyForecast> _decodeHourlyForecast(String json) {
     final list = jsonDecode(json) as List<dynamic>;
     return list
@@ -240,13 +240,13 @@ class WeatherCacheService {
         .toList();
   }
 
-  /// Helper: Encode List<DailyForecast> to JSON string
+  /// Helper: Encode `List<DailyForecast>` to JSON string
   static String _encodeDailyForecast(List<DailyForecast> forecasts) {
     final list = forecasts.map((f) => f.toJson()).toList();
     return jsonEncode(list);
   }
 
-  /// Helper: Decode List<DailyForecast> from JSON string
+  /// Helper: Decode `List<DailyForecast>` from JSON string
   static List<DailyForecast> _decodeDailyForecast(String json) {
     final list = jsonDecode(json) as List<dynamic>;
     return list

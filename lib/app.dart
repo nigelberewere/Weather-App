@@ -43,7 +43,7 @@ class WeatherlyApp extends ConsumerWidget {
             completed ? const HomePage() : const OnboardingPage(),
         loading: () =>
             const Scaffold(body: Center(child: CircularProgressIndicator())),
-        error: (_, __) => const HomePage(), // Fallback to home if error
+        error: (error, stack) => const HomePage(), // Fallback to home if error
       ),
     );
   }

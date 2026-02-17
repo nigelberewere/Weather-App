@@ -23,7 +23,7 @@ final hourlyForecastProvider =
       final units = await unitsAsync.when<Future<String>>(
         data: (u) async => u,
         loading: () async => 'metric',
-        error: (_, __) async => 'metric',
+        error: (error, stack) async => 'metric',
       );
       final result = await repository.getHourlyForecast(
         latitude: location.latitude,
@@ -53,7 +53,7 @@ final dailyForecastProvider =
       final units = await unitsAsync.when<Future<String>>(
         data: (u) async => u,
         loading: () async => 'metric',
-        error: (_, __) async => 'metric',
+        error: (error, stack) async => 'metric',
       );
       final result = await repository.getDailyForecast(
         latitude: location.latitude,

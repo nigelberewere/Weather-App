@@ -231,7 +231,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                       .when(
                         data: (alerts) => WeatherAlertBanner(alerts: alerts),
                         loading: () => const SizedBox.shrink(),
-                        error: (_, __) => const SizedBox.shrink(),
+                        error: (error, stack) => const SizedBox.shrink(),
                       ),
                 ),
                 SliverPadding(
@@ -265,7 +265,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                             },
                             loading: () =>
                                 UVHealthGuidanceCard(uvIndex: weather.uvIndex),
-                            error: (_, __) =>
+                            error: (error, stack) =>
                                 UVHealthGuidanceCard(uvIndex: weather.uvIndex),
                           ),
                     ]),

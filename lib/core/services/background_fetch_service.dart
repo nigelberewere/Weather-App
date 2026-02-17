@@ -59,7 +59,7 @@ class BackgroundFetchService {
   }
 
   /// Handle background fetch callback
-  static void _onBackgroundFetch(String taskId) async {
+  static Future<void> _onBackgroundFetch(String taskId) async {
     debugPrint('⏳ Background fetch task executing: $taskId');
 
     try {
@@ -99,12 +99,12 @@ class BackgroundFetchService {
     }
 
     // IMPORTANT: Must call finish when task is complete
-    BackgroundFetch.finish(taskId);
+    await BackgroundFetch.finish(taskId);
   }
 
   /// Handle background fetch timeout
-  static void _onBackgroundFetchTimeout(String taskId) {
+  static Future<void> _onBackgroundFetchTimeout(String taskId) async {
     debugPrint('⏱️ Background fetch task timeout: $taskId');
-    BackgroundFetch.finish(taskId);
+    await BackgroundFetch.finish(taskId);
   }
 }
