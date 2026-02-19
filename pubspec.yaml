@@ -19,7 +19,7 @@ dependencies:
   
   # Networking
   dio: ^5.4.3+1
-  retrofit: 4.6.0
+  retrofit: ^4.9.2
   
   # JSON & Models
   freezed_annotation: ^3.1.0
