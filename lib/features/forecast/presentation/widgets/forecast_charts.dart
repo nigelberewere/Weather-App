@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -30,8 +32,16 @@ class HourlyForecastChart extends ConsumerWidget {
   }
 
   Widget _buildChart(BuildContext context, String unit) {
-    // Limit to 12 hours for better readability
-    final displayForecasts = forecasts.take(12).toList();
+    final sortedForecasts = [...forecasts]
+      ..sort((a, b) => a.time.compareTo(b.time));
+    final now = DateTime.now();
+    final currentHour = DateTime(now.year, now.month, now.day, now.hour);
+    final endHour = currentHour.add(const Duration(hours: 48));
+    final displayForecasts = sortedForecasts
+        .where(
+          (f) => !f.time.isBefore(currentHour) && f.time.isBefore(endHour),
+        )
+        .toList();
     final tempSpots = <FlSpot>[];
     final precipSpots = <BarChartRodData>[];
 
@@ -97,104 +107,123 @@ class HourlyForecastChart extends ConsumerWidget {
             ),
           ),
           padding: const EdgeInsets.all(12),
-          child: LineChart(
-            LineChartData(
-              minY: minY,
-              maxY: maxY,
-              gridData: FlGridData(
-                show: true,
-                drawVerticalLine: false,
-                getDrawingHorizontalLine: (value) {
-                  return FlLine(
-                    color: Colors.white.withOpacity(0.1),
-                    strokeWidth: 1,
-                  );
-                },
-              ),
-              borderData: FlBorderData(show: false),
-              titlesData: FlTitlesData(
-                topTitles: const AxisTitles(
-                  sideTitles: SideTitles(showTitles: false),
-                ),
-                rightTitles: const AxisTitles(
-                  sideTitles: SideTitles(showTitles: false),
-                ),
-                leftTitles: AxisTitles(
-                  sideTitles: SideTitles(
-                    showTitles: true,
-                    reservedSize: 42,
-                    getTitlesWidget: (value, meta) {
-                      return Text(
-                        '${value.toStringAsFixed(0)}°',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 11,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      );
-                    },
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              final chartWidth = math.max(
+                constraints.maxWidth,
+                displayForecasts.length * 52.0,
+              );
+              return Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  _FixedYAxisLabels(
+                    min: minY,
+                    max: maxY,
+                    suffix: '°',
                   ),
-                ),
-                bottomTitles: AxisTitles(
-                  sideTitles: SideTitles(
-                    showTitles: true,
-                    interval: (displayForecasts.length / 6).clamp(1, 6),
-                    getTitlesWidget: (value, meta) {
-                      final index = value.toInt();
-                      if (index < 0 || index >= displayForecasts.length) {
-                        return const SizedBox.shrink();
-                      }
-                      final label = DateFormatter.formatHour(
-                        displayForecasts[index].time,
-                      );
-                      return Padding(
-                        padding: const EdgeInsets.only(top: 8),
-                        child: Text(
-                          label,
-                          style: const TextStyle(
-                            fontSize: 11,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500,
+                  const SizedBox(width: 6),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: SizedBox(
+                        width: chartWidth,
+                        child: LineChart(
+                          LineChartData(
+                            minY: minY,
+                            maxY: maxY,
+                            gridData: FlGridData(
+                              show: true,
+                              drawVerticalLine: false,
+                              getDrawingHorizontalLine: (value) {
+                                return FlLine(
+                                  color: Colors.white.withOpacity(0.1),
+                                  strokeWidth: 1,
+                                );
+                              },
+                            ),
+                            borderData: FlBorderData(show: false),
+                            titlesData: FlTitlesData(
+                              topTitles: const AxisTitles(
+                                sideTitles: SideTitles(showTitles: false),
+                              ),
+                              rightTitles: const AxisTitles(
+                                sideTitles: SideTitles(showTitles: false),
+                              ),
+                              leftTitles: const AxisTitles(
+                                sideTitles: SideTitles(showTitles: false),
+                              ),
+                              bottomTitles: AxisTitles(
+                                sideTitles: SideTitles(
+                                  showTitles: true,
+                                  interval: (displayForecasts.length / 6)
+                                      .clamp(1, 6),
+                                  getTitlesWidget: (value, meta) {
+                                    final index = value.toInt();
+                                    if (index < 0 ||
+                                        index >= displayForecasts.length) {
+                                      return const SizedBox.shrink();
+                                    }
+                                    final label = DateFormatter.formatHour(
+                                      displayForecasts[index].time,
+                                    );
+                                    return Padding(
+                                      padding: const EdgeInsets.only(top: 8),
+                                      child: Text(
+                                        label,
+                                        style: const TextStyle(
+                                          fontSize: 11,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                            lineBarsData: [
+                              LineChartBarData(
+                                spots: tempSpots,
+                                isCurved: true,
+                                barWidth: 3.5,
+                                dotData: FlDotData(
+                                  show: true,
+                                  getDotPainter: (spot, percent, barData, index) {
+                                    return FlDotCirclePainter(
+                                      radius: 4,
+                                      color: Colors.white,
+                                      strokeWidth: 2,
+                                      strokeColor: Colors.orangeAccent,
+                                    );
+                                  },
+                                ),
+                                gradient: const LinearGradient(
+                                  colors: [
+                                    Colors.orangeAccent,
+                                    Colors.deepOrangeAccent,
+                                  ],
+                                ),
+                                belowBarData: BarAreaData(
+                                  show: true,
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Colors.orangeAccent.withOpacity(0.3),
+                                      Colors.orangeAccent.withOpacity(0.0),
+                                    ],
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      );
-                    },
-                  ),
-                ),
-              ),
-              lineBarsData: [
-                LineChartBarData(
-                  spots: tempSpots,
-                  isCurved: true,
-                  barWidth: 3.5,
-                  dotData: FlDotData(
-                    show: true,
-                    getDotPainter: (spot, percent, barData, index) {
-                      return FlDotCirclePainter(
-                        radius: 4,
-                        color: Colors.white,
-                        strokeWidth: 2,
-                        strokeColor: Colors.orangeAccent,
-                      );
-                    },
-                  ),
-                  gradient: const LinearGradient(
-                    colors: [Colors.orangeAccent, Colors.deepOrangeAccent],
-                  ),
-                  belowBarData: BarAreaData(
-                    show: true,
-                    gradient: LinearGradient(
-                      colors: [
-                        Colors.orangeAccent.withOpacity(0.3),
-                        Colors.orangeAccent.withOpacity(0.0),
-                      ],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
+                ],
+              );
+            },
           ),
         ),
         const SizedBox(height: 20),
@@ -233,80 +262,143 @@ class HourlyForecastChart extends ConsumerWidget {
             ),
           ),
           padding: const EdgeInsets.all(12),
-          child: BarChart(
-            BarChartData(
-              maxY: 100,
-              gridData: FlGridData(
-                show: true,
-                drawVerticalLine: false,
-                getDrawingHorizontalLine: (value) {
-                  return FlLine(
-                    color: Colors.white.withOpacity(0.1),
-                    strokeWidth: 1,
-                  );
-                },
-              ),
-              borderData: FlBorderData(show: false),
-              titlesData: FlTitlesData(
-                topTitles: const AxisTitles(
-                  sideTitles: SideTitles(showTitles: false),
-                ),
-                rightTitles: const AxisTitles(
-                  sideTitles: SideTitles(showTitles: false),
-                ),
-                leftTitles: AxisTitles(
-                  sideTitles: SideTitles(
-                    showTitles: true,
-                    reservedSize: 42,
-                    getTitlesWidget: (value, meta) {
-                      return Text(
-                        '${value.toInt()}%',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 11,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      );
-                    },
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              final chartWidth = math.max(
+                constraints.maxWidth,
+                displayForecasts.length * 52.0,
+              );
+              return Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const _FixedYAxisLabels(
+                    min: 0,
+                    max: 100,
+                    suffix: '%',
                     interval: 25,
                   ),
-                ),
-                bottomTitles: AxisTitles(
-                  sideTitles: SideTitles(
-                    showTitles: true,
-                    interval: (displayForecasts.length / 6).clamp(1, 6),
-                    getTitlesWidget: (value, meta) {
-                      final index = value.toInt();
-                      if (index < 0 || index >= displayForecasts.length) {
-                        return const SizedBox.shrink();
-                      }
-                      final label = DateFormatter.formatHour(
-                        displayForecasts[index].time,
-                      );
-                      return Padding(
-                        padding: const EdgeInsets.only(top: 6),
-                        child: Text(
-                          label,
-                          style: const TextStyle(
-                            fontSize: 10,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500,
+                  const SizedBox(width: 6),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: SizedBox(
+                        width: chartWidth,
+                        child: BarChart(
+                          BarChartData(
+                            maxY: 100,
+                            gridData: FlGridData(
+                              show: true,
+                              drawVerticalLine: false,
+                              getDrawingHorizontalLine: (value) {
+                                return FlLine(
+                                  color: Colors.white.withOpacity(0.1),
+                                  strokeWidth: 1,
+                                );
+                              },
+                            ),
+                            borderData: FlBorderData(show: false),
+                            titlesData: FlTitlesData(
+                              topTitles: const AxisTitles(
+                                sideTitles: SideTitles(showTitles: false),
+                              ),
+                              rightTitles: const AxisTitles(
+                                sideTitles: SideTitles(showTitles: false),
+                              ),
+                              leftTitles: const AxisTitles(
+                                sideTitles: SideTitles(showTitles: false),
+                              ),
+                              bottomTitles: AxisTitles(
+                                sideTitles: SideTitles(
+                                  showTitles: true,
+                                  interval: (displayForecasts.length / 6)
+                                      .clamp(1, 6),
+                                  getTitlesWidget: (value, meta) {
+                                    final index = value.toInt();
+                                    if (index < 0 ||
+                                        index >= displayForecasts.length) {
+                                      return const SizedBox.shrink();
+                                    }
+                                    final label = DateFormatter.formatHour(
+                                      displayForecasts[index].time,
+                                    );
+                                    return Padding(
+                                      padding: const EdgeInsets.only(top: 6),
+                                      child: Text(
+                                        label,
+                                        style: const TextStyle(
+                                          fontSize: 10,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                            barGroups: List.generate(
+                              precipSpots.length,
+                              (index) => BarChartGroupData(
+                                x: index,
+                                barRods: [precipSpots[index]],
+                              ),
+                            ),
                           ),
                         ),
-                      );
-                    },
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              barGroups: List.generate(
-                precipSpots.length,
-                (index) =>
-                    BarChartGroupData(x: index, barRods: [precipSpots[index]]),
-              ),
-            ),
+                ],
+              );
+            },
           ),
         ),
       ],
+    );
+  }
+}
+
+class _FixedYAxisLabels extends StatelessWidget {
+  final double min;
+  final double max;
+  final String suffix;
+  final double? interval;
+
+  const _FixedYAxisLabels({
+    required this.min,
+    required this.max,
+    required this.suffix,
+    this.interval,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final labels = <double>[];
+    if (interval != null && interval! > 0) {
+      for (var value = max; value >= min; value -= interval!) {
+        labels.add(value);
+      }
+    } else {
+      labels.addAll([max, (min + max) / 2, min]);
+    }
+
+    return SizedBox(
+      width: 42,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: labels
+            .map(
+              (value) => Text(
+                '${value.toStringAsFixed(0)}$suffix',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            )
+            .toList(),
+      ),
     );
   }
 }
