@@ -10,24 +10,34 @@ import 'package:weatherly/core/services/background_fetch_service.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Initialize Hive
-  await Hive.initFlutter();
+  // Initialize Hive only on mobile platforms
+  if (Platform.isAndroid || Platform.isIOS) {
+    try {
+      await Hive.initFlutter();
+    } catch (e) {
+      debugPrint('⚠️ Hive initialization error: $e');
+    }
+  }
 
-  // Load environment variables
+  // Load environment variables (may not exist on web build)
   try {
     await dotenv.load(fileName: '.env');
   } catch (e) {
-    debugPrint('Warning: Could not load .env file: $e');
+    debugPrint('⚠️ Could not load .env file: $e');
   }
 
   // Initialize notification service and background fetch only on mobile
   if (Platform.isAndroid || Platform.isIOS) {
-    final notificationService = NotificationService();
-    await notificationService.initialize();
+    try {
+      final notificationService = NotificationService();
+      await notificationService.initialize();
 
-    // Initialize background fetch for periodic weather updates
-    await BackgroundFetchService.initializeBackgroundFetch();
-    await BackgroundFetchService.startBackgroundFetch();
+      // Initialize background fetch for periodic weather updates
+      await BackgroundFetchService.initializeBackgroundFetch();
+      await BackgroundFetchService.startBackgroundFetch();
+    } catch (e) {
+      debugPrint('⚠️ Mobile services initialization error: $e');
+    }
   }
 
   runApp(const ProviderScope(child: WeatherlyApp()));
