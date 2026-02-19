@@ -4,7 +4,7 @@
   "outputDirectory": "build/web",
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/(?!.*\\.(js|css|png|jpg|jpeg|svg|gif|json|webmanifest|wasm|data)$)(.*)",
       "destination": "/index.html"
     }
   ]
