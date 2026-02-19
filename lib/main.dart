@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'dart:io' show Platform;
 import 'package:weatherly/app.dart';
 import 'package:weatherly/core/services/notification_service.dart';
 import 'package:weatherly/core/services/background_fetch_service.dart';
@@ -19,13 +20,15 @@ void main() async {
     debugPrint('Warning: Could not load .env file: $e');
   }
 
-  // Initialize notification service
-  final notificationService = NotificationService();
-  await notificationService.initialize();
+  // Initialize notification service and background fetch only on mobile
+  if (Platform.isAndroid || Platform.isIOS) {
+    final notificationService = NotificationService();
+    await notificationService.initialize();
 
-  // Initialize background fetch for periodic weather updates
-  await BackgroundFetchService.initializeBackgroundFetch();
-  await BackgroundFetchService.startBackgroundFetch();
+    // Initialize background fetch for periodic weather updates
+    await BackgroundFetchService.initializeBackgroundFetch();
+    await BackgroundFetchService.startBackgroundFetch();
+  }
 
   runApp(const ProviderScope(child: WeatherlyApp()));
 }
