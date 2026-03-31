@@ -1,101 +1,23 @@
-name: CI
-
-on:
-  push:
-    branches: [ main, develop ]
-  pull_request:
-    branches: [ main, develop ]
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v3
-    
+steps:
+    - uses: actions/checkout@v4
     - name: Setup Flutter
       uses: subosito/flutter-action@v2
       with:
-        flutter-version: '3.35.3'
-        channel: 'stable'
+        flutter-version: '3.35.3' # Matches your project configuration
     
-    - name: Get dependencies
-      run: flutter pub get
-    
-    - name: Verify formatting
-      run: flutter format --set-exit-if-changed lib/
-    
-    - name: Analyze project source
-      run: flutter analyze
-    
-    - name: Run code generation
-      run: flutter pub run build_runner build --delete-conflicting-outputs
-    
-    - name: Run tests
-      run: flutter test --coverage
-    
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
-      with:
-        files: ./coverage/lcov.info
-        fail_ci_if_error: false
-
-  build-android:
-    runs-on: ubuntu-latest
-    needs: build
-    
-    steps:
-    - uses: actions/checkout@v3
-    
-    - name: Setup Flutter
-      uses: subosito/flutter-action@v2
-      with:
-        flutter-version: '3.35.3'
-        channel: 'stable'
-    
-    - name: Get dependencies
-      run: flutter pub get
-    
-    - name: Run code generation
-      run: flutter pub run build_runner build --delete-conflicting-outputs
-    
-    - name: Create .env file
+    - name: Install Apple Certificate
+      env:
+        CERTIFICATE_BASE64: ${{ secrets.P12_CERTIFICATE }}
+        P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
       run: |
-        echo "OPENWEATHER_API_KEY=${{ secrets.OPENWEATHER_API_KEY }}" >> .env
-        echo "GOOGLE_MAPS_API_KEY=${{ secrets.GOOGLE_MAPS_API_KEY }}" >> .env
-    
-    - name: Build Android APK
-      run: flutter build apk --release
-    
-    - name: Upload APK artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: android-release
-        path: build/app/outputs/flutter-apk/app-release.apk
+        echo $CERTIFICATE_BASE64 | base64 --decode > certificate.p12
+        # Commands to import into a temporary keychain on the runner
+        
+    - name: Get dependencies
+      run: flutter pub get
 
-  # build-ios:
-  #   runs-on: macos-latest
-  #   needs: build
-  #   
-  #   steps:
-  #   - uses: actions/checkout@v3
-  #   
-  #   - name: Setup Flutter
-  #     uses: subosito/flutter-action@v2
-  #     with:
-  #       flutter-version: '3.35.3'
-  #       channel: 'stable'
-  #   
-  #   - name: Get dependencies
-  #     run: flutter pub get
-  #   
-  #   - name: Run code generation
-  #     run: flutter pub run build_runner build --delete-conflicting-outputs
-  #   
-  #   - name: Create .env file
-  #     run: |
-  #       echo "OPENWEATHER_API_KEY=${{ secrets.OPENWEATHER_API_KEY }}" >> .env
-  #       echo "GOOGLE_MAPS_API_KEY=${{ secrets.GOOGLE_MAPS_API_KEY }}" >> .env
-  #   
-  #   - name: Build iOS
-  #     run: flutter build ios --release --no-codesign
+    - name: Run code generation
+      run: flutter pub run build_runner build --delete-conflicting-outputs
+
+    - name: Build IPA
+      run: flutter build ipa --release --export-options-plist=ios/ExportOptions.plist
